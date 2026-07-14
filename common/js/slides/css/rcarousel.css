@@ -1,0 +1,75 @@
+.ui-carousel {
+	height: 100px;
+	margin: 0;
+	overflow: auto;
+	padding: 0;
+	position: relative; /*for ie7 to work e.g in html carousels*/
+	width: 300px
+}
+
+.ui-carousel > .wrapper {
+    margin: 0;
+    padding: 0;
+    width: 9999px;
+}
+
+.ui-carousel > .wrapper > * {
+	border: 0;
+	display: block;
+	float: left;
+	height: 100px;
+	overflow: hidden;
+	width: 100px;	
+}
+
+#carousel {
+	width: 964px;
+	margin: 0 auto;
+}
+
+#ui-carousel-next, #ui-carousel-prev {
+	width: 60px;
+	height: 240px;
+	background: url(images/arrow-left.png) #fff center center no-repeat;
+	display: block;
+	position: absolute;
+	top: 0;
+	z-index: 100;
+}
+
+#ui-carousel-next {
+	right: 0;
+	background-image: url(images/arrow-right.png);
+}
+
+#ui-carousel-prev {
+	left: 0;
+}
+
+#ui-carousel-next > span, #ui-carousel-prev > span {
+	display: none;
+}
+
+.slide {
+	margin: 0;
+	position: relative;
+}
+
+#pages {
+	width: 150px;
+	margin: 0 auto;
+}
+
+.bullet {
+	background: url(/images/main/ico_circle_off.png) center center no-repeat;
+	display: block;
+	width: 10px;
+	height: 10px;
+	margin: 0;
+	margin-right: 5px;
+	float: left;				
+}
+
+#pages .on {
+	background: url(/images/main/ico_circle_on.png) center center no-repeat;
+}

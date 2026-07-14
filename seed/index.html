@@ -1,0 +1,47 @@
+<html>
+<head>
+	<title>SEED-CBC 테스트</title>
+	<link rel="stylesheet" href="style.css" type="text/css">
+	<meta http-equiv="content-type" content="text/html; charset=euc-kr" />
+	<script src="./ajax.js" language="JavaScript"></script>
+	<script language="JavaScript">
+		function SeedCBC( URL, FORM, ACT )
+		{
+			if( ACT == "enc" )
+				FORM.oCipherText.value = ( GetHttpRequest( URL, "iPlainText=" + encodeURIComponent(FORM.iPlainText.value)) ).trim();
+			else if( ACT == "dec" )
+				FORM.oPlainText.value = ( GetHttpRequest( URL, "oCipherText=" + encodeURIComponent(FORM.oCipherText.value)) ).trim();
+		}	
+	</script>
+</head>
+<body>
+<form name="seed_form">
+	<table border="0" width="500" celpadding="5">
+		<tr>
+			<td width="100">암호화할 메시지</td>
+			<td width="*">
+				<textarea name="iPlainText" style="width:100%;" rows="4"></textarea>
+			</td>
+		</tr>
+		<tr>
+			<td>암호화 된 메시지</td>
+			<td>
+				<textarea name="oCipherText" style="width:100%;" rows="4" readonly="readonly"></textarea>
+			</td>
+		</tr>
+		<tr>
+			<td>복호화 된 메시지</td>
+			<td>
+				<textarea name="oPlainText" style="width:100%;" rows="4" readonly="readonly"></textarea>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<input type="button" value="암호화" name="enc" onclick="JavaScript:SeedCBC('SeedEncryption.asp', document.seed_form, 'enc');" />&nbsp;
+				<input type="button" value="복호화" name="dec" onclick="JavaScript:SeedCBC('SeedDecryption.asp', document.seed_form, 'dec');" />
+			</td>
+		</tr>
+	</table>
+</form>
+</body>
+</html>

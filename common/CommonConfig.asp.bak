@@ -1,0 +1,99 @@
+﻿<%@ LANGUAGE="VBScript" CODEPAGE=65001 LCID=1042 ENABLESESSIONSTATE=TRUE %>
+<%'@ LANGUAGE="VBScript" CODEPAGE=949 LCID=1042 ENABLESESSIONSTATE=TRUE %>
+<%
+	Option Explicit
+	
+	Response.CharSet = "UTF-8"
+	'Response.CharSet = "euc-kr"
+	
+	If Request.ServerVariables("HTTPS") = "off" Then
+		'https 에서는 no-cashe 일경우 동적 파일다운로드 불가.
+		Response.AddHeader "Pragma", "no-cache"
+	End If
+%>
+<%
+'____________________________________________________________________________________
+'
+' * Discription : config.asp / SK건설 - Site 환경 설정
+' 
+' * History : (position number : date / author /회사약칭/ explanation)
+'   #000 : 2012-03-02 / 강미현 / - / 최초작성
+'   #001 : 
+'   #002 :
+'   #003 :
+'____________________________________________________________________________________
+%>
+<!-- #include virtual="/common/Function/Function.asp" -->
+<!-- #include virtual="/common/Class/Class.asp" -->
+<%
+'## 기본정보
+Const GLOBAL_SITE_ID = "MPCJOB"
+Const GLOBAL_HOST = "www.mpcjob.co.kr"
+Const GLOBAL_HOST_SSL = "www.mpcjob.co.kr"
+
+'Const GLOBAL_HOST = "210.112.73.44"
+'Const GLOBAL_HOST_SSL = "210.112.73.44"
+
+'## DB_INFO
+Const GLOBAL_DB_SOURCE = "210.112.73.45"
+Const GLOBAL_DB_NAME = "mpcjob"
+Const GLOBAL_DB_ID = "mpcjob"
+Const GLOBAL_DB_PASSWD = "rhksflwk!2mpcjob"
+
+'## 파일관련
+Const GLOBAL_ROOT_PATH = "/"
+Const GLOBAL_ADM_PATH = "/admin/"
+Const GLOBAL_FILE_PATH = "/_data/"
+Const GLOBAL_FILE_IMG = "gif,jpg,bmp,png"
+Const GLOBAL_UPLOAD_COMP = "TABS"	'DEXT / TABS 사용 가능
+Const GLOBAL_UPLOAD_SIZE = 10485760 'Byte 단위
+
+'## 이메일관련
+' 운영서버 정보
+CONST GLOBAL_MAIL = "mail@host.com"
+CONST GLOBAL_MAIL_USINGPORT = 1		'1 : local 서버 / 2 : 외부 서버
+Const GLOBAL_MAIL_SERVER = "host.com"
+Const GLOBAL_MAIL_ID = "userid"
+Const GLOBAL_MAIL_PWD = "password"
+
+'## SMS관련
+CONST GLOBAL_SMS_ID = "mpcadmin" 'SUserId
+CONST GLOBAL_SMS_AC = "Jkgffxefkd" 'ServiceAC
+CONST GLOBAL_SMS_CALLBACK = "0234326100" '발신처
+
+CONST GLOBAL_SMS_ID_EMFO = "mpc193" 'SUserId
+CONST GLOBAL_SMS_PWD_EMFO = "winner20!" 'ServicePW
+'CONST GLOBAL_SMS_PWD_EMFO = "gkszhjob19!" 'ServicePW
+
+'## 지도 API KEY
+'Const GLOBAL_MAPAPI_KEY = ""
+
+
+'## 기타
+Const GLOBAL_SEL_YEAR = 1950
+
+'## SSL 통해서만 접속 허용
+
+
+If Request.ServerVariables("HTTP_HOST") <> GLOBAL_HOST And Request.ServerVariables("HTTP_HOST") <> GLOBAL_HOST_SSL Then
+	Dim GLOBAL_CHANGE_URL
+	If Request.QueryString = "" Then
+		GLOBAL_CHANGE_URL = "http://" & GLOBAL_HOST & Request.ServerVariables("URL")
+	Else
+		GLOBAL_CHANGE_URL = "http://" & GLOBAL_HOST & Request.ServerVariables("URL") & "?" & Request.QueryString
+	End If
+	%>
+	<meta http-equiv="refresh" content="0; url=<%=GLOBAL_CHANGE_URL%>">
+	<%
+	Response.write "GLOBAL_CHANGE_URL : " & GLOBAL_CHANGE_URL
+	Response.End
+Else
+
+%>
+<Object RUNAT="Server" PROGID="ADODB.Connection" ID="objDBCon"></Object>
+<Object RUNAT="Server" PROGID="ADODB.RecordSet" ID="objRs"></Object>
+<Object RUNAT="Server" PROGID="ADODB.Command" ID="objCmd"></Object>
+<%
+	objDBCon.open "Provider=SQLOLEDB;User ID=" & GLOBAL_DB_ID & ";Password=" & GLOBAL_DB_PASSWD & ";Initial Catalog=" & GLOBAL_DB_NAME & ";Data Source=" & GLOBAL_DB_SOURCE & ";"
+End If
+%>

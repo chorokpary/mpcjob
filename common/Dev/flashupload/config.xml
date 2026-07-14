@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+ allowDomain : 접근 허용 도메인
+ uploadUrl : 업로드 처리 URL
+ limitSize : 허용 최대 파일 사이즈
+ fileTypeName : 파일 형식에 보여질 텍스트
+ allowFileType : 업로드 허용 가능 파일 타입 지정( *.jpg, *.gif 형식으로 추가 )
+
+ 예) 이미지 파일만 가능하게.
+ <fileTypeName>이미지 파일</fileTypeName>
+ <allowFileType>
+  <fileType>*.jpg</fileType>
+  <fileType>*.gif</fileType>
+  <fileType>*.bmp</fileType>
+ </allowFileType>
+
+ notAllowFileType : 업로드 제한 파일 타입 지정( allowFileType 과 같은 형식으로 지정 )
+--><!-- This document was created with Syntext Serna Free. --><config>
+  <allowDomain>http://www.4-m.co.kr</allowDomain>
+  <uploadUrl>http://www.4-m.co.kr/common/Dev/flashupload/upload_proc.asp</uploadUrl>
+  <limitSize unit="mb">3</limitSize>
+  <fileTypeName>Image Files</fileTypeName>
+  <allowFileType>
+    <fileType>*.jpg</fileType>
+    <fileType>*.jpeg</fileType>
+    <fileType>*.gif</fileType>
+    <fileType>*.bmp</fileType>
+    <fileType>*.png</fileType>
+  </allowFileType>
+  <notAllowFileType>
+    <fileType>*.jsp</fileType>
+    <fileType>*.php</fileType>
+    <fileType>*.html</fileType>
+    <fileType>*.asp</fileType>
+  </notAllowFileType>
+</config>

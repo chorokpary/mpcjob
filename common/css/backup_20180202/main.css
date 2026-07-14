@@ -1,0 +1,47 @@
+@charset "utf-8";
+
+/* css import */
+@import url("common.css");
+
+.main h2{padding-bottom:8px;}
+
+.main .section1{height:87px;margin-top:27px;border-bottom:1px solid #e4e4e4;}
+.main .cate a{float:left;margin-left:2px;}
+
+.main .section2{width:310px;height:130px;background:url(/images/main/bg_main_03.png) no-repeat top right; margin-top:30px;border-bottom:1px solid #e4e4e4;}
+
+.main .selectBox .inner2,.main .selectBox .inner2{float: left;}
+.main .selectBox .inner1 .sbHolder{width:96px;}
+.main .selectBox .inner2 .sbHolder{width:80px;}
+.main .selectBox input{margin-top:10px;}
+
+.main .topRight{position:absolute;top:88px;*top:115px;right:1px;width:642px;height:341px;}
+
+.main .section3{width:310px;height: 109px;margin-top:20px;}
+.main .section3 li{background:url(/images/common/blt_minus.png) no-repeat left 50%;padding-left:10px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;margin-bottom:3px;}
+
+.main .section4{position:relative; margin-top:27px;}
+.main .section4 .paging{position: absolute;top:2px;left:113px;}
+.main .section4 .paging a{margin-right:3px;}
+.main .section4 h2{border-bottom:1px solid #e4e4e4;}
+.main .section4 .pjtList li{width:25%;margin-top:15px;padding-bottom:8px;}
+.main .section4 .pjtList li .info{width:140px;padding-left:85px;}
+
+.main .bottom{position: relative; background:#fff url(/images/main/bg_main_bottom.jpg) no-repeat 0 20px;margin-top:-1px;padding:36px 32px 0;z-index:3;}
+.main .bottom .inner1{float: left;width:299px;height:100px;background:url(/images/main/bg_main_05.png) no-repeat 100px 8px;}
+.main .bottom .inner2{float: left;width:299px;text-align:center;}
+.main .bottom .inner2 h2{padding-bottom:15px;}
+.main .bottom .inner2 a{margin:0 15px;}
+.main .bottom .inner3{float: left;width:274px;background:url(/images/main/bg_main_07.png) no-repeat right 0;padding-left: 25px;}
+.main .bottom .inner3 p{margin-top:17px;}
+
+.main #footer{border:0;margin:0 0 0 2px;}
+
+/* IE6 POP */
+
+.ie6 .recruitComplete{text-align:center;}
+.ie6 .recruitComplete h2{margin-top:33px;}
+.ie6 .recruitComplete h3{margin:32px 0 6px;color:#1057b8;font-weight:bold;}
+.ie6 .recruitComplete p{margin-bottom:69px;}
+.ie6 .recruitComplete .ie6_close{position:absolute;top:20px;right:24px;cursor:pointer;}
+/* //IE6 POP */
