@@ -245,7 +245,7 @@
         </div>
         
         <div class="instruction-box">
-            스마트폰의 <strong>Google Authenticator</strong> 또는 <strong>Microsoft Authenticator</strong> 앱에 표시된 6자리 인증 번호를 입력해주십시오.
+            스마트폰의 <strong>Google OTP</strong> 또는 <strong>Microsoft Authenticator</strong> 앱에 표시된 6자리 인증 번호를 입력해주십시오.
         </div>
 
         <form id="frmOtp" name="frmOtp" action="otp_auth.asp" method="post">

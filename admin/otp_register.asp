@@ -268,7 +268,7 @@
         </div>
         
         <div class="instruction-box">
-            1. 스마트폰에 <strong>Google Authenticator</strong> 또는 <strong>Microsoft Authenticator</strong> 앱을 설치합니다.<br/>
+            1. 스마트폰에 <strong>Google OTP</strong> 또는 <strong>Microsoft Authenticator</strong> 앱을 설치합니다.<br/>
             2. 앱에서 추가(+) 버튼을 누른 후 <strong>QR 코드 스캔</strong>을 선택하여 아래 QR 코드를 스캔해주십시오.
         </div>
 
