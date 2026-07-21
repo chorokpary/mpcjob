@@ -8,8 +8,21 @@
         Response.End
     End If
 
-    Dim myIp, listRs, sqlList, arrData, arrDataNum, kData, i, vNum, RecordCount
+    Dim listRecord, listPage, Page, RecordCount, PageCount
+    Dim startIdx, endIdx
+    Dim myIp, listRs, sqlList, arrData, arrDataNum, kData, i, vNum
     myIp = Request.ServerVariables("REMOTE_ADDR")
+
+    listPage   = 10
+    listRecord = 10  ' 목록 개수
+    Page       = FN_Req("Page", "1")
+
+    If IsNumeric(Page) Then
+        Page = CInt(Page)
+    Else
+        Page = 1
+    End If
+    If Page < 1 Then Page = 1
 
     ' DB에서 전체 허용 IP 목록 조회
     On Error Resume Next
@@ -26,19 +39,28 @@
     End If
     On Error GoTo 0
 
-    ' GetRows 방식으로 데이터 바인딩
+    ' GetRows 방식으로 데이터 바인딩 및 페이징 처리
     kData       = False
     arrDataNum  = -1
     RecordCount = 0
+    PageCount   = 0
 
     If Not (listRs Is Nothing) Then
         On Error Resume Next
         If listRs.State = 1 Then
             If Not (listRs.Eof Or listRs.Bof) Then
                 arrData     = listRs.GetRows(,,Array("IpSeq","AllowIp","IpMemo","IsUse","RegDate"))
-                arrDataNum  = UBound(arrData, 2)
+                RecordCount = UBound(arrData, 2) + 1
+                PageCount   = FN_PageCount(RecordCount, listRecord)
+
+                If Page > PageCount And PageCount > 0 Then Page = PageCount
+
+                startIdx = (Page - 1) * listRecord
+                endIdx   = startIdx + listRecord - 1
+                If endIdx > RecordCount - 1 Then endIdx = RecordCount - 1
+
+                arrDataNum  = endIdx
                 kData       = True
-                RecordCount = arrDataNum + 1
             End If
             listRs.Close
         End If
@@ -161,8 +183,8 @@
                                 </tr>
                                 <% Else %>
                                 <%      
-                                        vNum = RecordCount
-                                        For i = 0 To arrDataNum 
+                                        vNum = RecordCount - ((Page - 1) * listRecord)
+                                        For i = startIdx To endIdx 
                                 %>
                                 <tr>
                                     <td><%=vNum%></td>
@@ -191,6 +213,14 @@
                                 <% End If %>
                             </tbody>
                         </table>
+
+                        <form name="frmPage" id="frmPage" method="post" action="ip_list.asp">
+                            <input type="hidden" id="Page" name="Page" value="<%=Page%>" />
+                        </form>
+                        
+                        <div class="paging">
+                            <% Call SB_PagingWriteAdmin(listPage, RecordCount, PageCount) %>
+                        </div>
                     </div>
                 </div>
             </div>
