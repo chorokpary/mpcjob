@@ -1,5 +1,5 @@
 <!-- #include virtual="/common/CommonConfig.asp" -->
-<!-- #include virtual="/admin/iplimit/ip_check.asp" -->
+<!-- #include virtual="/admin/siteconf/iplimit/ip_check.asp" -->
 <%
 '____________________________________________________________________________________
 '
