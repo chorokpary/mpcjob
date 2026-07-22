@@ -214,6 +214,10 @@ Class ClsFileMap
 		Call DicMenuCode.Add("/admin/siteconf/ezcareer_list.asp", Array("060700","경력 관리\t","1"))
 		Call DicMenuCode.Add("/admin/siteconf/ezcareer_form.asp", Array("060700","경력 관리\t","1"))
 		Call DicMenuCode.Add("/admin/siteconf/ezcareer_proc.asp", Array("060700","경력 관리\t","1"))
+		Call DicMenuCode.Add("/admin/siteconf/iplimit/ip_list.asp", Array("060800","IP 접근 제한 관리\t","1"))
+		Call DicMenuCode.Add("/admin/siteconf/iplimit/ip_form.asp", Array("060800","IP 접근 제한 관리\t","1"))
+		Call DicMenuCode.Add("/admin/siteconf/iplimit/ip_proc.asp", Array("060800","IP 접근 제한 관리\t","1"))
+		
 
 		'### 쪽지함  ####
 		Call DicMenuCode.Add("/admin/message/message_list.asp", Array("070100","","1"))

@@ -53,6 +53,7 @@
 						<li <%=FN_AdmGnbOn(GNB_STR_MND2,"05")%>><a href="/admin/siteconf/hiretype_list.asp">고용형태관리</a></li>
 						<li <%=FN_AdmGnbOn(GNB_STR_MND2,"06")%>><a href="/admin/siteconf/recrpart_list.asp">직종관리</a></li>
 						<li <%=FN_AdmGnbOn(GNB_STR_MND2,"07")%>><a href="/admin/siteconf/ezcareer_list.asp">경력관리</a></li>
+						<li <%=FN_AdmGnbOn(GNB_STR_MND2,"08")%>><a href="/admin/siteconf/iplimit/ip_list.asp">IP접근제한관리</a></li>
 					</ul>
 					<% Case "07" %>	
 					<h2>쪽지함</h2>
