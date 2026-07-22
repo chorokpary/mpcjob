@@ -71,7 +71,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>IP 접근 제한 설정 - HC 관리자</title>
+    <title>IP 접근 제한 관리 - HC 관리자</title>
     <!--#include virtual="/admin/include/head.asp"-->
     <script type="text/javascript">
         function copyMyIp(ip) {
@@ -113,7 +113,7 @@
             <div class="right">
                 <div class="location"><%=GNB_STR_LOC%></div>
                 <div id="contArea">
-                    <h2>IP 접근 제한 설정</h2>
+                    <h2>IP 접근 제한 관리</h2>
                     
                     <!-- IP 추가 및 검색 Area -->
                     <div class="btnArea">
@@ -126,7 +126,7 @@
                                     <a href="javascript:void(0);" onclick="copyMyIp('<%=myIp%>')">내 IP 자동입력</a>
                                 </span>
                                 <span class="btns btn_g" style="margin-left:5px;">
-                                    <a href="javascript:void(0);" onclick="openBypassPop();">🔓 예외 ID 관리</a>
+                                    <a href="javascript:void(0);" onclick="openBypassPop();">예외 ID 관리</a>
                                 </span>
                             </div>
                             

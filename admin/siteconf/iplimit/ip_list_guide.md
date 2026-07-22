@@ -1,20 +1,20 @@
 # IP 접근 제한 설정 (`ip_list.asp`) 사용 매뉴얼
 
-본 문서는 관리자 접속 IP 접근 제한 설정 페이지([ip_list.asp](file:///d:/MPCJOB/mpcjob_2012/admin/iplimit/ip_list.asp))의 기능, 동작 원리 및 관리자 사용법을 정리한 매뉴얼입니다.
+본 문서는 관리자 접속 IP 접근 제한 설정 페이지([ip_list.asp](file:///d:/MPCJOB/mpcjob_2012/admin/siteconf/iplimit/ip_list.asp))의 기능, 동작 원리 및 관리자 사용법을 정리한 매뉴얼입니다.
 
 ---
 
 ## 1. 📌 개요
 
-* **페이지 경로**: `/admin/iplimit/ip_list.asp`
+* **페이지 경로**: `/admin/siteconf/iplimit/ip_list.asp`
 * **목적**: 허용된 IP 주소 대역에서만 관리자 페이지에 접근할 수 있도록 제한하여 비인가 사용자의 무단 접속을 차단하고 보안을 강화합니다.
 * **관련 주요 파일 및 DB**:
   | 구분 | 파일/테이블명 | 설명 |
   | :--- | :--- | :--- |
-  | **메인 설정 페이지** | [ip_list.asp](file:///d:/MPCJOB/mpcjob_2012/admin/iplimit/ip_list.asp) | 허용 IP 목록 조회, 신규 IP 등록, 사용 여부 토글, 삭제 및 예외 ID 팝업 호출 |
-  | **IP 처리 모듈** | [ip_proc.asp](file:///d:/MPCJOB/mpcjob_2012/admin/iplimit/ip_proc.asp) | IP 등록(`insert`), 삭제(`delete`), 사용상태 변경(`toggle`) DB 처리 |
-  | **IP 검증 모듈** | [ip_check.asp](file:///d:/MPCJOB/mpcjob_2012/admin/iplimit/ip_check.asp) | 로그인 및 페이지 접근 시 IP 허용 여부 및 예외 ID 검사 |
-  | **예외 ID 팝업** | [ip_bypass_pop.asp](file:///d:/MPCJOB/mpcjob_2012/admin/iplimit/ip_bypass_pop.asp) | IP 제한을 받지 않는 예외 관리자 계정 ID 등록/삭제 팝업 |
+  | **메인 설정 페이지** | [ip_list.asp](file:///d:/MPCJOB/mpcjob_2012/admin/siteconf/iplimit/ip_list.asp) | 허용 IP 목록 조회, 신규 IP 등록, 사용 여부 토글, 삭제 및 예외 ID 팝업 호출 |
+  | **IP 처리 모듈** | [ip_proc.asp](file:///d:/MPCJOB/mpcjob_2012/admin/siteconf/iplimit/ip_proc.asp) | IP 등록(`insert`), 삭제(`delete`), 사용상태 변경(`toggle`) DB 처리 |
+  | **IP 검증 모듈** | [ip_check.asp](file:///d:/MPCJOB/mpcjob_2012/admin/siteconf/iplimit/ip_check.asp) | 로그인 및 페이지 접근 시 IP 허용 여부 및 예외 ID 검사 |
+  | **예외 ID 팝업** | [ip_bypass_pop.asp](file:///d:/MPCJOB/mpcjob_2012/admin/siteconf/iplimit/ip_bypass_pop.asp) | IP 제한을 받지 않는 예외 관리자 계정 ID 등록/삭제 팝업 |
   | **허용 IP 테이블** | `TBL_IP_ALLOW` | 허용 IP 주소, 메모, 사용 여부(`IsUse`) 저장 |
   | **예외 ID 테이블** | `TBL_IP_BYPASS` | IP 차단 대상에서 무조건 예외 처리(통과)되는 관리자 ID 저장 |
 

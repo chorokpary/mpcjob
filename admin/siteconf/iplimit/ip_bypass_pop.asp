@@ -79,7 +79,7 @@
     </style>
 </head>
 <body>
-    <div class="pop_title">🔒 IP 접근 제한 예외 관리자 ID 설정</div>
+    <div class="pop_title">IP 접근 제한 예외 관리자 ID 설정</div>
     
     <!-- ID 등록 폼 -->
     <div class="reg_box">

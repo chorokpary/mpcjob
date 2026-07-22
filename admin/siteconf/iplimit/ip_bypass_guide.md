@@ -24,17 +24,17 @@ CREATE TABLE TBL_IP_BYPASS (
 
 | 구분 | 파일 경로 | 설명 |
 | :--- | :--- | :--- |
-| **IP 관리 메인** | [ip_list.asp](file:///d:/MPCJOB/mpcjob_2012/admin/iplimit/ip_list.asp) | 상단 영역에 `🔓 예외 ID 관리` 버튼 추가 및 팝업창(`openBypassPop()`) 호출 스크립트 반영 |
-| **예외 ID 팝업** | [ip_bypass_pop.asp](file:///d:/MPCJOB/mpcjob_2012/admin/iplimit/ip_bypass_pop.asp) | 등록된 예외 관리자 ID 목록 조회, 신규 예외 ID 및 메모 입력 폼, 삭제 버튼 제공 팝업 |
-| **팝업 처리 로직** | [ip_bypass_proc.asp](file:///d:/MPCJOB/mpcjob_2012/admin/iplimit/ip_bypass_proc.asp) | 예외 ID 등록(`insert`) 및 삭제(`delete`) DB 쿼리 수행 모듈 |
-| **IP 접근 검증** | [ip_check.asp](file:///d:/MPCJOB/mpcjob_2012/admin/iplimit/ip_check.asp) | 로그인한 계정이 `TBL_IP_BYPASS` 테이블에 존재하면 IP 차단 대상에서 무조건 예외 처리(통과) |
+| **IP 관리 메인** | [ip_list.asp](file:///d:/MPCJOB/mpcjob_2012/admin/siteconf/iplimit/ip_list.asp) | 상단 영역에 `🔓 예외 ID 관리` 버튼 추가 및 팝업창(`openBypassPop()`) 호출 스크립트 반영 |
+| **예외 ID 팝업** | [ip_bypass_pop.asp](file:///d:/MPCJOB/mpcjob_2012/admin/siteconf/iplimit/ip_bypass_pop.asp) | 등록된 예외 관리자 ID 목록 조회, 신규 예외 ID 및 메모 입력 폼, 삭제 버튼 제공 팝업 |
+| **팝업 처리 로직** | [ip_bypass_proc.asp](file:///d:/MPCJOB/mpcjob_2012/admin/siteconf/iplimit/ip_bypass_proc.asp) | 예외 ID 등록(`insert`) 및 삭제(`delete`) DB 쿼리 수행 모듈 |
+| **IP 접근 검증** | [ip_check.asp](file:///d:/MPCJOB/mpcjob_2012/admin/siteconf/iplimit/ip_check.asp) | 로그인한 계정이 `TBL_IP_BYPASS` 테이블에 존재하면 IP 차단 대상에서 무조건 예외 처리(통과) |
 
 ---
 
 ## 3. 🔄 주요 기능 및 프로세스
 
 ### Step 1. 예외 ID 관리 팝업 호출
-* 관리자 페이지의 IP 접근 제한 설정([ip_list.asp](file:///d:/MPCJOB/mpcjob_2012/admin/iplimit/ip_list.asp)) 접속 후 `내 IP 자동입력` 옆의 **`🔓 예외 ID 관리`** 버튼을 클릭합니다.
+* 관리자 페이지의 IP 접근 제한 설정([ip_list.asp](file:///d:/MPCJOB/mpcjob_2012/admin/siteconf/iplimit/ip_list.asp)) 접속 후 `내 IP 자동입력` 옆의 **`🔓 예외 ID 관리`** 버튼을 클릭합니다.
 * `ip_bypass_pop.asp` 팝업창(크기: 620x520)이 새로 열립니다.
 
 ### Step 2. 예외 ID 등록 및 삭제
@@ -42,4 +42,4 @@ CREATE TABLE TBL_IP_BYPASS (
 * **삭제**: 목록에서 삭제할 ID 항목의 `삭제` 버튼을 누르면 DB에서 제거되어 예외 처리가 해제됩니다.
 
 ### Step 3. IP 검증 우회 (자동 적용)
-* `TBL_IP_BYPASS`에 등록된 아이디로 로그인한 사용자는 **[ip_check.asp](file:///d:/MPCJOB/mpcjob_2012/admin/iplimit/ip_check.asp)** 접근 제어 체크 시 **IP 허용 목록에 등록되어 있지 않더라도 무조건 정상 통과**합니다.
+* `TBL_IP_BYPASS`에 등록된 아이디로 로그인한 사용자는 **[ip_check.asp](file:///d:/MPCJOB/mpcjob_2012/admin/siteconf/iplimit/ip_check.asp)** 접근 제어 체크 시 **IP 허용 목록에 등록되어 있지 않더라도 무조건 정상 통과**합니다.
