@@ -295,6 +295,7 @@
         </form>
         
         <div class="login-copy">
+            <strong style="color: #7f8c8d;">유선문의 : 02-3432-6100</strong><br />
             COPYRIGHT © MPC Plus INC. ALL RIGHTS RESERVED.
         </div>
     </div>
