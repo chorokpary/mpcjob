@@ -83,7 +83,7 @@
                 Response.ContentType = "text/html"
                 Response.CharSet = "utf-8"
                 Response.Write "<script type=""text/javascript"">"
-                Response.Write "alert('허용되지 않은 IP 주소(" & userIp & ")에서 접속을 시도했습니다.\n관리자에게 문의하십시오.');"
+                Response.Write "alert('허용되지 않은 IP 주소(" & userIp & ")에서 접속을 시도했습니다.\n관리자에게 문의하십시오.\n유선문의 : 02-3432-6100');"
                 Response.Write "location.href = '/admin/login.asp';"
                 Response.Write "</script>"
                 Response.End
