@@ -558,9 +558,9 @@ DB에 누적되는 데이터는 **자동 감지 로그**와 **핵심 명시적 �
   * [`/admin/siteconf/audit_log_list.asp`](file:///d:/MPCJOB/mpcjob_2012/admin/siteconf/audit_log_list.asp) — 감사 로그 목록 및 검색 페이지
   * [`/admin/siteconf/audit_log_xls.asp`](file:///d:/MPCJOB/mpcjob_2012/admin/siteconf/audit_log_xls.asp) — 감사 로그 엑셀 다운로드 처리 페이지
 
-### ② 기존 수정 파일 (18개)
+### ② 기존 수정 파일 (19개)
 * **공통 설정 및 매핑**:
-  * [`/common/AdminConfig.asp`](file:///d:/MPCJOB/mpcjob_2012/common/AdminConfig.asp) — 전역 자동 감지 엔진 (`AutoDetectAuditLog`) 탑재, 공통 함수 인클루드 및 `mem_proc.asp` 예외 스킵 추가
+  * [`/common/AdminConfig.asp`](file:///d:/MPCJOB/mpcjob_2012/common/AdminConfig.asp) — 전역 자동 감지 엔진 (`AutoDetectAuditLog`) 탑재, 공통 함수 인클루드 및 `mem_proc.asp`, `pjt_proc.asp` 예외 스킵 추가
   * [`/common/Class/Class.FileMap.asp`](file:///d:/MPCJOB/mpcjob_2012/common/Class/Class.FileMap.asp) — 메뉴 코드 매핑 확장 및 메뉴명 탭 문자 정제
   * [`/common/CommonConfig.asp`](file:///d:/MPCJOB/mpcjob_2012/common/CommonConfig.asp) — 개발/테스트 호스트 환경 설정 변경
   * [`/common/Dev/FileDown.asp`](file:///d:/MPCJOB/mpcjob_2012/common/Dev/FileDown.asp) — 파일 다운로드 성공/실패 감사 로그 수집 연동
@@ -577,6 +577,8 @@ DB에 누적되는 데이터는 **자동 감지 로그**와 **핵심 명시적 �
   * [`/admin/recruit/job_apply_user.asp`](file:///d:/MPCJOB/mpcjob_2012/admin/recruit/job_apply_user.asp) — 이력서 다운로드 폼 POST 전송 및 공고번호 파라미터 전달 보완
   * [`/admin/recruit/job_form.asp`](file:///d:/MPCJOB/mpcjob_2012/admin/recruit/job_form.asp) — 채용공고 폼 Action URL 및 감사 로그 연동
   * [`/admin/recruit/job_proc.asp`](file:///d:/MPCJOB/mpcjob_2012/admin/recruit/job_proc.asp) — 채용공고 처리 리다이렉트 주소 및 감사 로그 연동
+* **프로젝트 관리**:
+  * [`/admin/project/pjt_proc.asp`](file:///d:/MPCJOB/mpcjob_2012/admin/project/pjt_proc.asp) — Flag별(등록/수정/삭제/노출상태) 명시적 감사 로그 생성 및 자동 감지 표준 결합 적재
 * **게시판 관리**:
   * [`/admin/board/notice_form.asp`](file:///d:/MPCJOB/mpcjob_2012/admin/board/notice_form.asp) — 공지사항 폼 진입 `READ` 로그 및 Action URL 연동
   * [`/admin/board/faq_form.asp`](file:///d:/MPCJOB/mpcjob_2012/admin/board/faq_form.asp) — FAQ 폼 진입 `READ` 로그 및 Action URL 연동
@@ -588,14 +590,14 @@ DB에 누적되는 데이터는 **자동 감지 로그**와 **핵심 명시적 �
 
 ## 📂 8. 감사 로그 연동 관련 주요 파일별 수정 상세 내역
 
-감사 로그(자동 감지 및 핵심 포인트 수동 보완) 시스템 적용 과정에서 추가 및 변경된 21개 주요 파일의 상세 내용입니다.
+감사 로그(자동 감지 및 핵심 포인트 수동 보완) 시스템 적용 과정에서 추가 및 변경된 22개 주요 파일의 상세 내용입니다.
 
-### 📌 금번 작업 수정/추가 파일 경로 목록 (21개)
+### 📌 금번 작업 수정/추가 파일 경로 목록 (22개)
 * **신규 추가 파일 (3개)**:
   * [`/common/Function/FnAuditLog.asp`](file:///d:/MPCJOB/mpcjob_2012/common/Function/FnAuditLog.asp)
   * [`/admin/siteconf/audit_log_list.asp`](file:///d:/MPCJOB/mpcjob_2012/admin/siteconf/audit_log_list.asp)
   * [`/admin/siteconf/audit_log_xls.asp`](file:///d:/MPCJOB/mpcjob_2012/admin/siteconf/audit_log_xls.asp)
-* **기존 수정 파일 (18개)**:
+* **기존 수정 파일 (19개)**:
   * [`/common/AdminConfig.asp`](file:///d:/MPCJOB/mpcjob_2012/common/AdminConfig.asp)
   * [`/common/Class/Class.FileMap.asp`](file:///d:/MPCJOB/mpcjob_2012/common/Class/Class.FileMap.asp)
   * [`/common/CommonConfig.asp`](file:///d:/MPCJOB/mpcjob_2012/common/CommonConfig.asp)
@@ -609,6 +611,7 @@ DB에 누적되는 데이터는 **자동 감지 로그**와 **핵심 명시적 �
   * [`/admin/include/left.asp`](file:///d:/MPCJOB/mpcjob_2012/admin/include/left.asp)
   * [`/admin/member/mem_form.asp`](file:///d:/MPCJOB/mpcjob_2012/admin/member/mem_form.asp)
   * [`/admin/member/mem_proc.asp`](file:///d:/MPCJOB/mpcjob_2012/admin/member/mem_proc.asp)
+  * [`/admin/project/pjt_proc.asp`](file:///d:/MPCJOB/mpcjob_2012/admin/project/pjt_proc.asp)
   * [`/admin/recruit/job_apply_user.asp`](file:///d:/MPCJOB/mpcjob_2012/admin/recruit/job_apply_user.asp)
   * [`/admin/recruit/job_form.asp`](file:///d:/MPCJOB/mpcjob_2012/admin/recruit/job_form.asp)
   * [`/admin/recruit/job_proc.asp`](file:///d:/MPCJOB/mpcjob_2012/admin/recruit/job_proc.asp)
@@ -628,11 +631,11 @@ DB에 누적되는 데이터는 **자동 감지 로그**와 **핵심 명시적 �
   * SQL Injection 방지를 위한 문자 치환 처리를 포함합니다.
 
 #### 2. [AdminConfig.asp](file:///d:/MPCJOB/mpcjob_2012/common/AdminConfig.asp) `[MODIFY]`
-* **주요 내용**: 전역 자동 감지 엔진 `AutoDetectAuditLog` 탑재, 공통 함수 인클루드 및 `mem_proc.asp` 스킵 예외 추가
+* **주요 내용**: 전역 자동 감지 엔진 `AutoDetectAuditLog` 탑재, 공통 함수 인클루드 및 `mem_proc.asp`, `pjt_proc.asp` 스킵 예외 추가
 * **상세 설명**:
   * 관리자 세션이 감지되면 요청 파라미터 분석을 통해 C/U/D 및 단순 조회(`READ`), 엑셀 다운로드(`EXCEL`), 파일 다운로드(`FILEDOWN`) 로그를 100% 자동 기록합니다.
   * 비밀번호 관련 파라미터(`pwd`, `pass` 등)는 `*****`로 자동 마스킹 처리하여 보관합니다.
-  * 자체 명시적 감사 로그를 기록하는 `mem_proc.asp` 페이지 진입 시에는 중복 적재 방지를 위해 `AutoDetectAuditLog`를 `Exit Sub` 하도록 예외 처리 구문을 반영하였습니다.
+  * 자체 명시적 감사 로그를 기록하는 `mem_proc.asp`, `pjt_proc.asp` 페이지 진입 시에는 중복 적재 방지를 위해 `AutoDetectAuditLog`를 `Exit Sub` 하도록 예외 처리 구문을 반영하였습니다.
 
 #### 3. [Class.FileMap.asp](file:///d:/MPCJOB/mpcjob_2012/common/Class/Class.FileMap.asp) `[MODIFY]`
 * **주요 내용**: 감사 로그에서 탐색하는 파일 정보 및 메뉴코드의 신규 매핑 반영 및 메뉴명 정제 로직 탑재
@@ -720,30 +723,41 @@ DB에 누적되는 데이터는 **자동 감지 로그**와 **핵심 명시적 �
 
 ---
 
-### ⑤ 게시판 관리 레이어
+### ⑤ 프로젝트 관리 레이어
 
-#### 16. [notice_form.asp](file:///d:/MPCJOB/mpcjob_2012/admin/board/notice_form.asp) `[MODIFY]`
+#### 16. [pjt_proc.asp](file:///d:/MPCJOB/mpcjob_2012/admin/project/pjt_proc.asp) `[MODIFY]`
+* **주요 내용**: 프로젝트 C/U/D 및 노출 상태 변경(Flag별) 명시적 감사 로그 생성 및 자동 감지 표준 결합 적재
+* **상세 설명**:
+  * `ADD`, `MOD`, `DEL`, `STA` 등 전달받은 Flag 구분값에 맞춰 감사 로그를 생성하도록 구현하였습니다.
+  * DB 처리 완료 시점(`Result = 0`)에 기존 자동 감지 파라미터 표준 포맷(`[행위명] /admin/project/pjt_proc.asp [파라미터: ...]`) 뒤에 상세 설명(`auditLogDesc`)을 결합하여 정확히 1회 적재되도록 반영하였습니다.
+  * `AdminConfig.asp` 내 `AutoDetectAuditLog` 전역 엔진 중복 적재 방지를 위해 `pjt_proc.asp` 스킵 예외 처리를 연동하였습니다.
+
+---
+
+### ⑥ 게시판 관리 레이어
+
+#### 17. [notice_form.asp](file:///d:/MPCJOB/mpcjob_2012/admin/board/notice_form.asp) `[MODIFY]`
 * **주요 내용**: 공지사항 폼 진입 감사 로그 및 Action URL 연동
 * **상세 설명**:
   * 공지사항 등록/수정 폼 진입 시 `READ` 감사 로그를 적재하고, 폼 전송 주소를 테스트 서버 환경으로 맞추었습니다.
 
-#### 17. [faq_form.asp](file:///d:/MPCJOB/mpcjob_2012/admin/board/faq_form.asp) `[MODIFY]`
+#### 18. [faq_form.asp](file:///d:/MPCJOB/mpcjob_2012/admin/board/faq_form.asp) `[MODIFY]`
 * **주요 내용**: FAQ 폼 진입 감사 로그 및 Action URL 연동
 * **상세 설명**:
   * FAQ 등록/수정 폼 진입 시 `READ` 감사 로그를 적재하고, 폼 전송 주소를 테스트 서버 환경으로 맞추었습니다.
 
 ---
 
-### ⑥ 환경설정 / IP 접근 통제 레이어
+### ⑦ 환경설정 / IP 접근 통제 레이어
 
-#### 18. [ip_proc.asp](file:///d:/MPCJOB/mpcjob_2012/admin/siteconf/iplimit/ip_proc.asp) `[MODIFY]`
+#### 19. [ip_proc.asp](file:///d:/MPCJOB/mpcjob_2012/admin/siteconf/iplimit/ip_proc.asp) `[MODIFY]`
 * **주요 내용**: IP 접근 제한의 등록, 삭제, 상태 변경에 대한 명시적 감사 로그 적재 보완
 * **상세 설명**:
   * DB INSERT 성공 직후: `CREATE` 타입으로 허용 IP 주소 및 메모 내용 상세 기록
   * DB DELETE 성공 직후: `DELETE` 타입으로 삭제한 IP 고유번호(`ipSeq`) 기록
   * DB UPDATE(상태 토글) 성공 직후: `UPDATE` 타입으로 상태가 바뀐 IP 고유번호 및 활성 여부(`Y/N`) 기록
 
-#### 19. [ip_bypass_proc.asp](file:///d:/MPCJOB/mpcjob_2012/admin/siteconf/iplimit/ip_bypass_proc.asp) `[MODIFY]`
+#### 20. [ip_bypass_proc.asp](file:///d:/MPCJOB/mpcjob_2012/admin/siteconf/iplimit/ip_bypass_proc.asp) `[MODIFY]`
 * **주요 내용**: IP 차단 예외 대상 관리자 ID의 등록 및 삭제에 대한 명시적 감사 로그 적재 보완
 * **상세 설명**:
   * 예외 ID 추가 성공 직후: `CREATE` 타입으로 등록된 관리자 ID 및 메모 상세 기록
@@ -751,17 +765,86 @@ DB에 누적되는 데이터는 **자동 감지 로그**와 **핵심 명시적 �
 
 ---
 
-### ⑦ 감사 로그 관리 레이어
+### ⑧ 감사 로그 관리 레이어
 
-#### 20. [audit_log_list.asp](file:///d:/MPCJOB/mpcjob_2012/admin/siteconf/audit_log_list.asp) `[NEW]`
+#### 21. [audit_log_list.asp](file:///d:/MPCJOB/mpcjob_2012/admin/siteconf/audit_log_list.asp) `[NEW]`
 * **주요 내용**: 감사 로그 목록 조회 및 다중 조건 검색 화면 구현
 * **상세 설명**:
   * `TBL_ADMIN_AUDIT_LOG` 테이블에서 최근 발생 일시 순서로 감사 로그 기록 목록을 페이징 처리하여 보여줍니다.
   * 행위 구분별(등록/조회/수정/삭제/다운/엑셀/로그인/로그아웃), 대메뉴별, 검색어(관리자ID, 이름, IP, 상세설명)를 조합한 상세 필터 조회가 가능합니다.
   * 검색 필터 폼 내에서 "엑셀 다운로드"를 연계할 수 있는 버튼 및 비동기 전송 스크립트(`goExcel`)가 탑재되어 있습니다.
 
-#### 21. [audit_log_xls.asp](file:///d:/MPCJOB/mpcjob_2012/admin/siteconf/audit_log_xls.asp) `[NEW]`
+#### 22. [audit_log_xls.asp](file:///d:/MPCJOB/mpcjob_2012/admin/siteconf/audit_log_xls.asp) `[NEW]`
 * **주요 내용**: 감사 로그 목록 엑셀 변환 파일 내보내기 구현
 * **상세 설명**:
   * `audit_log_list.asp`에서 설정한 현재 검색 필터 조건을 그대로 유지하면서, 전체 결과 리스트(최대 10,000건 제한)를 엑셀 파일 형식(`xls`)으로 변환 및 즉시 첨부 파일로 내려받도록 처리합니다.
   * 각 열(ID, IP, 메뉴코드, 대상 키 등)은 엑셀 내에서 문자열 포맷이 깨지지 않도록 CSS 텍스트 속성(`mso-number-format`)을 적용하여 출력합니다.
+
+---
+
+## 🌐 9. 테스트 서버 환경(`test.mpcjob.co.kr`) 적용 파일 및 설정 내역
+
+제시된 파일 중 `test.mpcjob` (`test.mpcjob.co.kr`) 도메인 및 URL 설정이 포함된 **7개 주요 파일**의 정리 및 상세 내역입니다.
+
+### 📌 `test.mpcjob` 포함 파일 요약 (총 7개)
+
+| 번호 | 파일 경로 | 주요 설정 위치 및 내용 |
+| :---: | :--- | :--- |
+| **1** | [`/common/CommonConfig.asp`](file:///d:/MPCJOB/mpcjob_2012/common/CommonConfig.asp) | `GLOBAL_HOST` / `GLOBAL_HOST_SSL` 상수를 `"test.mpcjob.co.kr"`로 설정 (L31-32) |
+| **2** | [`/admin/login.asp`](file:///d:/MPCJOB/mpcjob_2012/admin/login.asp) | 로그인 폼 서밋 경로: `http://test.mpcjob.co.kr/admin/login_proc.asp` (L60) |
+| **3** | [`/admin/login_proc.asp`](file:///d:/MPCJOB/mpcjob_2012/admin/login_proc.asp) | 로그인 성공 후 이동 메타 URL: `http://test.mpcjob.co.kr/admin/recruit/job_skin_list.asp` (L75) |
+| **4** | [`/admin/member/mem_form.asp`](file:///d:/MPCJOB/mpcjob_2012/admin/member/mem_form.asp) | 회원 정보 저장 폼 서밋 URL: `http://test.mpcjob.co.kr/admin/member/mem_proc.asp` (L500) |
+| **5** | [`/admin/member/mem_proc.asp`](file:///d:/MPCJOB/mpcjob_2012/admin/member/mem_proc.asp) | 회원 정보 수정 완료 후 폼 이동 URL: `http://test.mpcjob.co.kr/admin/member/mem_form.asp` (L775) |
+| **6** | [`/admin/recruit/job_form.asp`](file:///d:/MPCJOB/mpcjob_2012/admin/recruit/job_form.asp) | 채용공고 폼 전송 및 Ajax URL: `http://test.mpcjob.co.kr/admin/recruit/job_proc.asp` (L254, L353, L406, L502) |
+| **7** | [`/admin/recruit/job_proc.asp`](file:///d:/MPCJOB/mpcjob_2012/admin/recruit/job_proc.asp) | 공고 등록/수정/마감 후 리다이렉트 URL: `http://test.mpcjob.co.kr/admin/recruit/job_skin_*.asp` (L295, L297, L299, L301) |
+
+---
+
+### 📝 파일별 `test.mpcjob` 코드 반영 상세 내역
+
+#### 1. [CommonConfig.asp](file:///d:/MPCJOB/mpcjob_2012/common/CommonConfig.asp) (L31, L32)
+* **내용**: 전역 호스트 상수를 테스트 서버 도메인으로 설정
+```asp
+Const GLOBAL_HOST = "test.mpcjob.co.kr"
+Const GLOBAL_HOST_SSL = "test.mpcjob.co.kr"
+```
+
+#### 2. [login.asp](file:///d:/MPCJOB/mpcjob_2012/admin/login.asp) (L60)
+* **내용**: 로그인 폼 Action 경로 설정
+```html
+<form id="frmLogin" name="frmLogin" action="http://test.mpcjob.co.kr/admin/login_proc.asp" method="post">
+```
+
+#### 3. [login_proc.asp](file:///d:/MPCJOB/mpcjob_2012/admin/login_proc.asp) (L75)
+* **내용**: 로그인 성공 시 메인 채용공고 목록 페이지 이동 메타 태그
+```asp
+<meta http-equiv="refresh" content="0; url=http://test.mpcjob.co.kr/admin/recruit/job_skin_list.asp">
+```
+
+#### 4. [mem_form.asp](file:///d:/MPCJOB/mpcjob_2012/admin/member/mem_form.asp) (L500)
+* **내용**: 회원 정보 입력/수정 폼 전송 Action URL
+```javascript
+$("#frmInfo").attr({action:"http://test.mpcjob.co.kr/admin/member/mem_proc.asp", method:"post", enctype:"multipart/form-data"}).submit();
+```
+
+#### 5. [mem_proc.asp](file:///d:/MPCJOB/mpcjob_2012/admin/member/mem_proc.asp) (L775)
+* **내용**: 회원 정보 수정 완료 후 회원 상세 폼으로 이동하는 리다이렉트 스크립트
+```asp
+strScript = "window.location.href = ""http://test.mpcjob.co.kr/admin/member/mem_form.asp?Seq=" & Seq & "&Filter=" & Filter & "&sFlag=" & sFlag & "&sView=" & sView & """; "
+```
+
+#### 6. [job_form.asp](file:///d:/MPCJOB/mpcjob_2012/admin/recruit/job_form.asp) (L254, L353, L406, L502)
+* **내용**: 채용 공고 폼 전송 및 Ajax 요청 URL
+```javascript
+$("#frmInfo").attr({action:"http://test.mpcjob.co.kr/admin/recruit/job_proc.asp", method:"post", target:"_self", enctype:"multipart/form-data"}).submit();
+var url = "http://test.mpcjob.co.kr/admin/recruit/job_proc.asp";
+```
+
+#### 7. [job_proc.asp](file:///d:/MPCJOB/mpcjob_2012/admin/recruit/job_proc.asp) (L295, L297, L299, L301)
+* **내용**: 채용 공고 처리 완료 후 진행중/마감/추천 목록으로 이동하는 리다이렉트 스크립트
+```asp
+strScript = "window.location.href = ""http://test.mpcjob.co.kr/admin/recruit/job_skin_list.asp""; "
+strScript = "$(""#frmPage"").attr({action:""http://test.mpcjob.co.kr/admin/recruit/job_skin_" & Fn_SetDefault(IsView,True,"list","elist") & ".asp"", method:""post""}).submit();"
+strScript = "window.location.href = ""http://test.mpcjob.co.kr/admin/recruit/job_recom_list.asp?sViewFlag=" & sViewFlag & """; "
+strScript = "window.location.href = ""http://test.mpcjob.co.kr/admin/recruit/job_skin_elist.asp""; "
+```
