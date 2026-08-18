@@ -1,4 +1,4 @@
-﻿<%
+<%
 '____________________________________________________________________________________
 '
 ' * Discription : Class.FileMap.asp / 파일 정보 Mapping
@@ -141,6 +141,7 @@ Class ClsFileMap
 		Call DicMenuCode.Add("/admin/recruit/job_apply_stats.asp", Array("010000","지원자현황\t","3"))
 		Call DicMenuCode.Add("/admin/recruit/job_apply_user.asp", Array("010000","지원자관리\t","3"))
 		Call DicMenuCode.Add("/admin/recruit/job_apply_user_xls.asp", Array("010000","지원자관리\t","3"))
+		Call DicMenuCode.Add("/admin/recruit/job_apply_user_xls_new.asp", Array("010000","지원자리스트 저장\t","3"))
 		Call DicMenuCode.Add("/admin/recruit/job_apply_proc.asp", Array("010000","지원자관리\t","3"))
 		Call DicMenuCode.Add("/admin/recruit/job_adm_ajax.asp", Array("010000","채용공고 심사권한\t","3"))
 		Call DicMenuCode.Add("/admin/recruit/job_partner_stats.asp", Array("010000","통계관리\t","3"))
@@ -196,6 +197,7 @@ Class ClsFileMap
 		Call DicMenuCode.Add("/admin/siteconf/adm_list.asp", Array("060100","관리자등록\t","1"))
 		Call DicMenuCode.Add("/admin/siteconf/adm_form.asp", Array("060100","관리자등록\t","3"))
 		Call DicMenuCode.Add("/admin/siteconf/adm_proc.asp", Array("060100","관리자등록\t","3"))
+		Call DicMenuCode.Add("/admin/siteconf/adm_down_list.asp", Array("060100","관리자등록\t","1"))
 		Call DicMenuCode.Add("/admin/siteconf/conf_main.asp", Array("060200","메인설정\t","1"))
 		Call DicMenuCode.Add("/admin/siteconf/conf_main_proc.asp", Array("060200","메인설정\t","1"))
 		Call DicMenuCode.Add("/admin/siteconf/conf_flash.asp", Array("060200","메인 플래시 설정\t","1"))
@@ -203,8 +205,8 @@ Class ClsFileMap
 		Call DicMenuCode.Add("/admin/siteconf/conf_flash_proc.asp", Array("060200","메인 플래시 설정\t","1"))
 		Call DicMenuCode.Add("/admin/siteconf/partner_skin_clist.asp", Array("060300","인력업체 관리\t","1"))
 		Call DicMenuCode.Add("/admin/siteconf/partner_skin_olist.asp", Array("060400","온라인 광고 관리\t","1"))
-		Call DicMenuCode.Add("/admin/siteconf/partner_form.asp", Array("060000","\t","1"))
-		Call DicMenuCode.Add("/admin/siteconf/partner_proc.asp", Array("060000","\t","1"))
+		Call DicMenuCode.Add("/admin/siteconf/partner_form.asp", Array("060400","온라인 광고 관리\t","1"))
+		Call DicMenuCode.Add("/admin/siteconf/partner_proc.asp", Array("060400","온라인 광고 관리\t","1"))
 		Call DicMenuCode.Add("/admin/siteconf/hiretype_list.asp", Array("060500","고용형태 관리\t","1"))
 		Call DicMenuCode.Add("/admin/siteconf/hiretype_form.asp", Array("060500","고용형태 관리\t","1"))
 		Call DicMenuCode.Add("/admin/siteconf/hiretype_proc.asp", Array("060500","고용형태 관리\t","1"))
@@ -217,6 +219,12 @@ Class ClsFileMap
 		Call DicMenuCode.Add("/admin/siteconf/iplimit/ip_list.asp", Array("060800","IP 접근 제한 관리\t","1"))
 		Call DicMenuCode.Add("/admin/siteconf/iplimit/ip_form.asp", Array("060800","IP 접근 제한 관리\t","1"))
 		Call DicMenuCode.Add("/admin/siteconf/iplimit/ip_proc.asp", Array("060800","IP 접근 제한 관리\t","1"))
+		Call DicMenuCode.Add("/admin/siteconf/iplimit/ip_bypass_list.asp", Array("060800","IP 접근 제한 관리\t","1"))
+		Call DicMenuCode.Add("/admin/siteconf/iplimit/ip_bypass_form.asp", Array("060800","IP 접근 제한 관리\t","1"))
+		Call DicMenuCode.Add("/admin/siteconf/iplimit/ip_bypass_proc.asp", Array("060800","IP 접근 제한 관리\t","1"))	
+		Call DicMenuCode.Add("/admin/siteconf/iplimit/ip_bypass_pop.asp", Array("060800","IP 접근 제한 관리\t","1"))	
+		Call DicMenuCode.Add("/admin/siteconf/audit_log_list.asp", Array("060900","감사 로그 관리\t","1"))	
+		Call DicMenuCode.Add("/admin/siteconf/audit_log_xls.asp", Array("060900","감사 로그 관리\t","1"))	
 		
 
 		'### 쪽지함  ####
@@ -367,8 +375,12 @@ Class ClsFileMap
 		Dim strMenuName : strMenuName = "메인"
 		Dim strDicKey	: strDicKey = chkDicKey(argDicKey)
 		
+
 		If IsArray(DicMenuCode(strDicKey)) Then
-			strMenuName = DicMenuCode(strDicKey)(2)
+			strMenuName = DicMenuCode(strDicKey)(1) ' 1번째 인자인 "메뉴명\t" 로드
+			If InStr(strMenuName, "\t") > 0 Then
+				strMenuName = Split(strMenuName, "\t")(0) ' 뒤쪽 탭 문자(\t) 제거 및 메뉴명 추출
+			End If
 		End If
 		
 		getMenuName = strMenuName

@@ -1,4 +1,4 @@
-﻿<!-- #include virtual="/common/CommonConfig.asp" -->
+<!-- #include virtual="/common/CommonConfig.asp" -->
 <%
 '____________________________________________________________________________________
 '
@@ -127,6 +127,8 @@
 		
 		'파일이 존재 하는가?
 		If NOT objFS.FileExists(Server.MapPath(FilePath)) Then
+			' 파일 다운로드 실패 감사 로그 적재
+			Call AddAuditLog("FILEDOWN", "", Seq, "[실패/파일없음] 파일명: " & FileName & " (필드: " & Field & ", 구분: " & Flag & ")")
 			Call SB_ReturnErr("요청하신 파일이 존재하지 않습니다.","BACK")
 			Response.end 
 		End If
@@ -150,6 +152,9 @@
 		objStream.LoadFromFile(Server.MapPath(FilePath))
 	
 		buff = objStream.Read
+	
+		' 파일 다운로드 감사 로그 적재
+		Call AddAuditLog("FILEDOWN", "", Seq, "파일명: " & FileName & " (필드: " & Field & ", 구분: " & Flag & ")")
 
 		Response.BinaryWrite buff 
 	
@@ -162,3 +167,4 @@
 		Call SB_ReturnErr("잘못된 경로로 접근하셨습니다.","BACK")
 	End Sub
 %>
+<!-- #include virtual="/common/Function/FnAuditLog.asp" -->
