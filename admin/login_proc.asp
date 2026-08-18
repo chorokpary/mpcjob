@@ -1,4 +1,5 @@
 <!-- #include virtual="/common/CommonConfig.asp" -->
+<!-- #include virtual="/common/Function/FnAuditLog.asp" -->
 <%
 '____________________________________________________________________________________
 '
@@ -68,13 +69,22 @@
 
 				Session.Timeout = 180
 				
+				' [감사 로그] 로그인 성공 기록
+				Call AddAuditLog("LOGIN", "000000", Rs("AdmSeq"), "관리자 로그인 성공 (ID: " & strID & ", 이름: " & Rs("AdmName") & ")")
+				
 				%><meta http-equiv="refresh" content="0; url=http://www.mpcjob.co.kr/admin/recruit/job_skin_list.asp"><%
 				Response.End
 			ElseIf Result = "LOCK" Then
+				' [감사 로그] 로그인 잠금 기록
+				Call AddAuditLog("LOGIN_FAIL", "000000", "", "로그인 실패 - 계정 잠금상태 (ID: " & strID & ")")
 				Call SB_ReturnErr("로그인 실패 횟수 초과 되었습니다. 담당자에게 연락 바랍니다.","BACK")
 			ElseIf Result = "FAIL" Then
+				' [감사 로그] 로그인 실패 기록
+				Call AddAuditLog("LOGIN_FAIL", "000000", "", "로그인 실패 - 접속정보 불일치 (ID: " & strID & ")")
 				Call SB_ReturnErr("접속 정보가 올바르지 않습니다.","BACK")
 			Else
+				' [감사 로그] 시스템 오류 기록
+				Call AddAuditLog("LOGIN_FAIL", "000000", "", "로그인 실패 - 내부 시스템 오류 (ID: " & strID & ")")
 				Call SB_ReturnErr("처리도중 오류가 발생하였습니다. 다시 시도해 주시기 바랍니다.","BACK")
 			End If
 		End With

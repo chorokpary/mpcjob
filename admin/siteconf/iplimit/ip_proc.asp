@@ -1,4 +1,5 @@
 <!-- #include virtual="/common/CommonConfig.asp" -->
+<!-- #include virtual="/common/Function/FnAuditLog.asp" -->
 <%
     ' 1. 권한 체크 (로그인한 일반 관리자 세션이 존재하는지 확인)
     If Session("ASeq") = "" Or IsNull(Session("ASeq")) Then
@@ -38,6 +39,10 @@
                 Response.Write "<script>alert('IP 등록 도중 오류가 발생했습니다.\nError: " & Err.Description & "'); history.back();</script>"
                 Response.End
             End If
+
+            ' [감사 로그] 신규 IP 허용 등록 성공 로그
+            Call AddAuditLog("CREATE", "060100", "", "신규 IP 허용 등록 (IP: " & allowIp & ", 메모: " & ipMemo & ")")
+
             On Error GoTo 0
 
             Response.Redirect "ip_list.asp"
@@ -62,6 +67,10 @@
                 Response.Write "<script>alert('IP 삭제 도중 오류가 발생했습니다.\nError: " & Err.Description & "'); history.back();</script>"
                 Response.End
             End If
+
+            ' [감사 로그] 허용 IP 삭제 성공 로그
+            Call AddAuditLog("DELETE", "060100", ipSeq, "허용 IP 삭제 (IPSeq: " & ipSeq & ")")
+
             On Error GoTo 0
 
             Response.Redirect "ip_list.asp"
@@ -87,6 +96,10 @@
                 Response.Write "<script>alert('상태 변경 도중 오류가 발생했습니다.\nError: " & Err.Description & "'); history.back();</script>"
                 Response.End
             End If
+
+            ' [감사 로그] IP 사용 상태 토글 성공 로그
+            Call AddAuditLog("UPDATE", "060100", ipSeq, "IP 사용 상태 변경 (IPSeq: " & ipSeq & ", 변경상태: " & isUse & ")")
+
             On Error GoTo 0
 
             Response.Redirect "ip_list.asp"

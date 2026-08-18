@@ -292,13 +292,13 @@
 				strMsg = "처리가 완료됐습니다."
 				
 				If Flag = "ADD" OR Flag = "REF" Then
-					strScript = "window.location.href = ""http://www.mpcjob.co.kr/admin/recruit/job_skin_list.asp""; "
+					strScript = "window.location.href = ""http://test.mpcjob.co.kr/admin/recruit/job_skin_list.asp""; "
 				ElseIf Flag = "MOD" Then
-					strScript = "$(""#frmPage"").attr({action:""http://www.mpcjob.co.kr/admin/recruit/job_skin_" & Fn_SetDefault(IsView,True,"list","elist") & ".asp"", method:""post""}).submit();"
+					strScript = "$(""#frmPage"").attr({action:""http://test.mpcjob.co.kr/admin/recruit/job_skin_" & Fn_SetDefault(IsView,True,"list","elist") & ".asp"", method:""post""}).submit();"
 				ElseIf Flag = "NO_RECOM" Then
-					strScript = "window.location.href = ""http://www.mpcjob.co.kr/admin/recruit/job_recom_list.asp?sViewFlag=" & sViewFlag & """; "
+					strScript = "window.location.href = ""http://test.mpcjob.co.kr/admin/recruit/job_recom_list.asp?sViewFlag=" & sViewFlag & """; "
 				Else
-					strScript = "window.location.href = ""http://www.mpcjob.co.kr/admin/recruit/job_skin_elist.asp""; "
+					strScript = "window.location.href = ""http://test.mpcjob.co.kr/admin/recruit/job_skin_elist.asp""; "
 				End If
 			Else
 				strMsg = "처리도중 오류가 발생했습니다."

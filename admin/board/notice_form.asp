@@ -85,7 +85,9 @@
 			
 			oEditors.getById["Contents"].exec("UPDATE_CONTENTS_FIELD", []);
 		
-			$("#frmInfo").attr({action:"notice_proc.asp", method:"post"}).submit();
+			$("#frmInfo").attr({action:"notice_proc.asp?Flag=" + $("#Flag").val(), method:"post"}).submit();
+			// $("#frmInfo").attr({action:"notice_proc.asp", method:"post"}).submit();
+			
 		}
 		
 		function doDelFile(targetImg, targetFld, strPath){

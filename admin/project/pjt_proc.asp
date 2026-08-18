@@ -1,4 +1,4 @@
-﻿<!-- #include virtual="/common/CommonConfig.asp" -->
+<!-- #include virtual="/common/CommonConfig.asp" -->
 <!-- #include virtual="/common/AdminConfig.asp" -->
 <%
 '____________________________________________________________________________________
@@ -147,6 +147,101 @@
 		Dim strUrl
 		Dim strPath : strPath = Server.MapPath("/")
 		
+		' =========================================================================
+		' [감사 로그 적재] DB 처리 성공(Result = 0) 시 Flag별 Audit Log 생성
+		' =========================================================================
+		If Result = 0 Then
+			Dim auditLogType, auditLogDesc, autoLogDesc
+			Dim scriptName, requestMethod, actionKorName, formParamStr, queryParamStr, itemKey, itemVal, paramKeyLower
+			Dim isMultipartReq
+
+			auditLogType = "UPDATE"
+			auditLogDesc = ""
+
+			Select Case Flag
+				Case "ADD"
+					auditLogType = "CREATE"
+					auditLogDesc = "프로젝트 신규 등록 (PrjSeq: " & Seq & ", 프로젝트명: " & PrjName & ")"
+
+				Case "MOD"
+					auditLogType = "UPDATE"
+					auditLogDesc = "프로젝트 정보 수정 (PrjSeq: " & Seq & ", 프로젝트명: " & PrjName & ")"
+
+				Case "DEL"
+					auditLogType = "DELETE"
+					auditLogDesc = "프로젝트 삭제 (PrjSeq: " & Seq & ")"
+
+				Case "STA"
+					auditLogType = "UPDATE"
+					auditLogDesc = "프로젝트 노출 상태 변경 (PrjSeq: " & Seq & ")"
+
+				Case Else
+					auditLogType = "UPDATE"
+					auditLogDesc = "프로젝트 정보 변경 [Flag: " & Flag & "] (PrjSeq: " & Seq & ")"
+			End Select
+
+			' 기존 자동 감지 로그 형식 생성 ([행위명] /admin/project/pjt_proc.asp [파라미터: ...])
+			scriptName    = LCase(Request.ServerVariables("SCRIPT_NAME"))
+			requestMethod = UCase(Request.ServerVariables("REQUEST_METHOD"))
+			isMultipartReq = (InStr(LCase(Request.ServerVariables("CONTENT_TYPE")), "multipart/form-data") > 0)
+
+			Select Case auditLogType
+				Case "CREATE" : actionKorName = "데이터 등록"
+				Case "DELETE" : actionKorName = "데이터 삭제"
+				Case Else     : actionKorName = "데이터 수정/변경"
+			End Select
+
+			formParamStr = ""
+			If requestMethod = "POST" And Not isMultipartReq Then
+				For Each itemKey In Request.Form
+					itemVal = Request.Form(itemKey) & ""
+					paramKeyLower = LCase(itemKey)
+
+					If InStr(paramKeyLower, "pwd") > 0 Or InStr(paramKeyLower, "pass") > 0 Then
+						itemVal = "*****"
+					End If
+
+					If itemVal <> "" And itemKey <> "__VIEWSTATE" Then
+						If formParamStr <> "" Then formParamStr = formParamStr & ", "
+						formParamStr = formParamStr & itemKey & "=" & Left(itemVal, 50)
+					End If
+				Next
+			End If
+
+			queryParamStr = ""
+			If Request.QueryString.Count > 0 Then
+				For Each itemKey In Request.QueryString
+					itemVal = Request.QueryString(itemKey) & ""
+					paramKeyLower = LCase(itemKey)
+
+					If InStr(paramKeyLower, "pwd") > 0 Or InStr(paramKeyLower, "pass") > 0 Then
+						itemVal = "*****"
+					End If
+
+					If itemVal <> "" Then
+						If queryParamStr <> "" Then queryParamStr = queryParamStr & ", "
+						queryParamStr = queryParamStr & itemKey & "=" & Left(itemVal, 50)
+					End If
+				Next
+			End If
+
+			autoLogDesc = "[" & actionKorName & "] " & scriptName
+			If formParamStr <> "" Then
+				autoLogDesc = autoLogDesc & " [파라미터: " & formParamStr & "]"
+			ElseIf queryParamStr <> "" Then
+				autoLogDesc = autoLogDesc & " [쿼리: " & queryParamStr & "]"
+			End If
+
+			' 기존 감지 로그 뒤에 auditLogDesc 결합
+			If auditLogDesc <> "" Then
+				autoLogDesc = autoLogDesc & " " & auditLogDesc
+			End If
+
+			' 공통 감사 로그 저장 (메뉴코드 "030100" = 프로젝트관리)
+			Call AddAuditLog(auditLogType, "030100", Seq, autoLogDesc)
+		End If
+		' =========================================================================
+
 		If Result = 0 Then
 			' ## 파일 삭제
 			If Not FN_isBlank(DelLogoPath) Then  	Call clsObjUpload.Delete(strPath & "/" & DelLogoPath)

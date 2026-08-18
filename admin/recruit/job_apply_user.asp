@@ -1,4 +1,4 @@
-﻿<!-- #include virtual="/common/CommonConfig.asp" -->
+<!-- #include virtual="/common/CommonConfig.asp" -->
 <!-- #include virtual="/common/AdminConfig.asp" -->
 <!-- #include virtual="/common/Seed/config.asp" -->
 <%
@@ -545,11 +545,12 @@
 			</div>
 		</div>
 	</div>
-	<form id="frmDown" name="frmDown">
+	<form id="frmDown" name="frmDown" method="post">
 		<input type="hidden" id="dnSeq" name="dnSeq">
 		<input type="hidden" id="dnFld" name="dnFld">
 		<input type="hidden" id="dnFName" name="dnFName">
 		<input type="hidden" id="dnFlag" name="dnFlag">
+		<input type="hidden" id="RecrSeq" name="RecrSeq" value="<%=RecrSeq%>">
 	</form>
 </body>
 </html>

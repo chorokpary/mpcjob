@@ -90,7 +90,8 @@
 				return;
 			}
 			
-			$("#frmInfo").attr({action:"faq_proc.asp", method:"post"}).submit();
+			$("#frmInfo").attr({action:"faq_proc.asp?Flag=" + $("#Flag").val(), method:"post"}).submit();
+			// $("#frmInfo").attr({action:"faq_proc.asp", method:"post"}).submit();
 		}
 		
 		$(function() {

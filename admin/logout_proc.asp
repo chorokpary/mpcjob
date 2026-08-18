@@ -1,4 +1,5 @@
 <!-- #include virtual="/common/CommonConfig.asp" -->
+<!-- #include virtual="/common/Function/FnAuditLog.asp" -->
 <%
 '____________________________________________________________________________________
 '
@@ -12,6 +13,9 @@
 '____________________________________________________________________________________
 %>
 <%
+	' [감사 로그] 로그아웃 기록 (세션을 지우기 전에 호출해야 누구인지 기록됩니다)
+	Call AddAuditLog("LOGOUT", "000000", Session("ASeq"), "관리자 로그아웃 (ID: " & Session("AID") & ", 이름: " & Session("AName") & ")")
+
 	'Session.Abandon	'프론트 동시로그인의 경우 대비 전체 세션 삭제하지 않음
 	Session("ASeq") = ""
 	Session("AID") = ""

@@ -1,4 +1,5 @@
 <!-- #include virtual="/common/CommonConfig.asp" -->
+<!-- #include virtual="/common/Function/FnAuditLog.asp" -->
 <%
     ' 권한 체크
     If Session("ASeq") & "" = "" Then
@@ -36,6 +37,10 @@
                 Response.Write "<script>alert('예외 ID 등록 도중 오류가 발생했습니다.\nError: " & Err.Description & "'); history.back();</script>"
                 Response.End
             End If
+
+            ' [감사 로그] 예외 ID 등록 성공 로그
+            Call AddAuditLog("CREATE", "060100", adminId, "예외 관리자 ID 등록 (ID: " & adminId & ", 메모: " & bypassMemo & ")")
+
             On Error GoTo 0
 
             Response.Redirect "ip_bypass_pop.asp"
@@ -60,6 +65,10 @@
                 Response.Write "<script>alert('삭제 도중 오류가 발생했습니다.\nError: " & Err.Description & "'); history.back();</script>"
                 Response.End
             End If
+
+            ' [감사 로그] 예외 ID 삭제 성공 로그
+            Call AddAuditLog("DELETE", "060100", bypassSeq, "예외 관리자 ID 삭제 (BypassSeq: " & bypassSeq & ")")
+
             On Error GoTo 0
 
             Response.Redirect "ip_bypass_pop.asp"

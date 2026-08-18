@@ -1,4 +1,5 @@
 <!-- #include virtual="/common/CommonConfig.asp" -->
+<!-- #include virtual="/common/Function/FnAuditLog.asp" -->
 <!-- #include virtual="/admin/siteconf/iplimit/ip_check.asp" -->
 <%
 '____________________________________________________________________________________
@@ -91,18 +92,30 @@
 				On Error GoTo 0
 				
 				If qrySuccess And dbSecretVal <> "" Then
+					' [감사 로그] 1단계 인증 성공 기록 (OTP 대기)
+					Call AddAuditLog("LOGIN_OTP_WAIT", "000000", Rs("AdmSeq"), "관리자 1차 로그인 성공 - OTP 인증 대기 (ID: " & strID & ", 이름: " & Rs("AdmName") & ")")
+					
 					' OTP가 이미 등록되어 있는 경우 -> OTP 인증 페이지로 리다이렉트
 					%><meta http-equiv="refresh" content="0; url=/admin/otp_auth.asp"><%
 				Else
+					' [감사 로그] 1단계 인증 성공 기록 (OTP 미등록)
+					Call AddAuditLog("LOGIN_OTP_WAIT", "000000", Rs("AdmSeq"), "관리자 1차 로그인 성공 - OTP 신규 등록 대기 (ID: " & strID & ", 이름: " & Rs("AdmName") & ")")
+					
 					' OTP 등록이 필요한 경우 -> OTP 최초 기기 등록 페이지로 리다이렉트
 					%><meta http-equiv="refresh" content="0; url=/admin/otp_register.asp"><%
 				End If
 				Response.End
 			ElseIf Result = "LOCK" Then
+				' [감사 로그] 로그인 잠금 기록
+				Call AddAuditLog("LOGIN_FAIL", "000000", "", "로그인 실패 - 계정 잠금상태 (ID: " & strID & ")")
 				Call SB_ReturnErr("로그인 실패 횟수 초과 되었습니다. 담당자에게 연락 바랍니다.","BACK")
 			ElseIf Result = "FAIL" Then
+				' [감사 로그] 로그인 실패 기록
+				Call AddAuditLog("LOGIN_FAIL", "000000", "", "로그인 실패 - 접속정보 불일치 (ID: " & strID & ")")
 				Call SB_ReturnErr("접속 정보가 올바르지 않습니다.","BACK")
 			Else
+				' [감사 로그] 시스템 오류 기록
+				Call AddAuditLog("LOGIN_FAIL", "000000", "", "로그인 실패 - 내부 시스템 오류 (ID: " & strID & ")")
 				Call SB_ReturnErr("처리도중 오류가 발생하였습니다. 다시 시도해 주시기 바랍니다.","BACK")
 			End If
 		End With

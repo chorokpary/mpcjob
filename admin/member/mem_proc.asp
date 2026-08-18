@@ -1,4 +1,4 @@
-﻿<!-- #include virtual="/common/CommonConfig.asp" -->
+<!-- #include virtual="/common/CommonConfig.asp" -->
 <!-- #include virtual="/common/AdminConfig.asp" -->
 <!-- #include virtual="/common/Seed/config.asp" -->
 <%
@@ -597,6 +597,161 @@
 		Dim strUrl
 		Dim strPath : strPath = Server.MapPath("/")
 		
+		' =========================================================================
+		' [감사 로그 적재] DB 처리 성공(Result = 0) 시 Flag별 Audit Log 생성
+		' =========================================================================
+		If Result = 0 Then
+			Dim auditLogType, auditLogDesc, autoLogDesc
+			Dim scriptName, requestMethod, actionKorName, formParamStr, queryParamStr, itemKey, itemVal, paramKeyLower
+			Dim isMultipartReq
+
+			auditLogType = "UPDATE"
+			auditLogDesc = ""
+
+			Select Case Flag
+				Case "ADD"
+					auditLogType = "CREATE"
+					auditLogDesc = "회원 신규 등록 (UsrSeq: " & Seq & ", 이름: " & UsrName & ")"
+
+				Case "MOD"
+					auditLogType = "UPDATE"
+					auditLogDesc = "회원 정보 수정 (UsrSeq: " & Seq & ", 이름: " & UsrName & ")"
+
+				Case "DEL"
+					auditLogType = "DELETE"
+					auditLogDesc = "회원 관리자 삭제 (UsrSeq: " & Seq & ")"
+
+				Case "BLK"
+					auditLogType = "UPDATE"
+					auditLogDesc = "회원 블랙리스트 상태 변경 (UsrSeq: " & Seq & ")"
+
+				Case "SEARCH"
+					auditLogType = "UPDATE"
+					auditLogDesc = "회원 서칭거부리스트 상태 변경 (UsrSeq: " & Seq & ")"
+
+				Case "PWD_C"
+					auditLogType = "UPDATE"
+					auditLogDesc = "회원 비밀번호 변경 (UsrSeq: " & Seq & ")"
+
+				Case "PWD_S"
+					auditLogType = "UPDATE"
+					auditLogDesc = "회원 임시비밀번호 발송 (UsrSeq: " & Seq & ")"
+
+				Case "PWD_R"
+					auditLogType = "UPDATE"
+					auditLogDesc = "회원 비밀번호 오류 횟수 초기화 (UsrSeq: " & Seq & ")"
+
+				Case "EDU"
+					If FlagSub = "DEL" Then
+						auditLogType = "DELETE"
+					ElseIf FlagSub = "ADD" Then
+						auditLogType = "CREATE"
+					Else
+						auditLogType = "UPDATE"
+					End If
+					auditLogDesc = "회원 학력정보 변경 [구분: " & FlagSub & "] (UsrSeq: " & Seq & ")"
+
+				Case "CAREER"
+					If FlagSub = "DEL" Then
+						auditLogType = "DELETE"
+					ElseIf FlagSub = "ADD" Then
+						auditLogType = "CREATE"
+					Else
+						auditLogType = "UPDATE"
+					End If
+					auditLogDesc = "회원 경력정보 변경 [구분: " & FlagSub & "] (UsrSeq: " & Seq & ")"
+
+				Case "FAM"
+					If FlagSub = "DEL" Then
+						auditLogType = "DELETE"
+					ElseIf FlagSub = "ADD" Then
+						auditLogType = "CREATE"
+					Else
+						auditLogType = "UPDATE"
+					End If
+					auditLogDesc = "회원 가족사항 변경 [구분: " & FlagSub & "] (UsrSeq: " & Seq & ")"
+
+				Case "MEMO"
+					If FlagSub = "DEL" Then
+						auditLogType = "DELETE"
+					ElseIf FlagSub = "ADD" Then
+						auditLogType = "CREATE"
+					Else
+						auditLogType = "UPDATE"
+					End If
+					auditLogDesc = "회원 관리자 메모 처리 [구분: " & FlagSub & "] (UsrSeq: " & Seq & ")"
+
+				Case "QUES"
+					auditLogType = "UPDATE"
+					auditLogDesc = "회원 사전질문 답변 변경 (UsrSeq: " & Seq & ", RecrSeq: " & RecrSeq & ")"
+
+				Case Else
+					auditLogType = "UPDATE"
+					auditLogDesc = "회원 정보 변경 [Flag: " & Flag & "] (UsrSeq: " & Seq & ")"
+			End Select
+
+			' 기존 자동 감지 로그 형식 생성 ([행위명] /admin/member/mem_proc.asp [파라미터: ...])
+			scriptName    = LCase(Request.ServerVariables("SCRIPT_NAME"))
+			requestMethod = UCase(Request.ServerVariables("REQUEST_METHOD"))
+			isMultipartReq = (InStr(LCase(Request.ServerVariables("CONTENT_TYPE")), "multipart/form-data") > 0)
+
+			Select Case auditLogType
+				Case "CREATE" : actionKorName = "데이터 등록"
+				Case "DELETE" : actionKorName = "데이터 삭제"
+				Case Else     : actionKorName = "데이터 수정/변경"
+			End Select
+
+			formParamStr = ""
+			If requestMethod = "POST" And Not isMultipartReq Then
+				For Each itemKey In Request.Form
+					itemVal = Request.Form(itemKey) & ""
+					paramKeyLower = LCase(itemKey)
+
+					If InStr(paramKeyLower, "pwd") > 0 Or InStr(paramKeyLower, "pass") > 0 Then
+						itemVal = "*****"
+					End If
+
+					If itemVal <> "" And itemKey <> "__VIEWSTATE" Then
+						If formParamStr <> "" Then formParamStr = formParamStr & ", "
+						formParamStr = formParamStr & itemKey & "=" & Left(itemVal, 50)
+					End If
+				Next
+			End If
+
+			queryParamStr = ""
+			If Request.QueryString.Count > 0 Then
+				For Each itemKey In Request.QueryString
+					itemVal = Request.QueryString(itemKey) & ""
+					paramKeyLower = LCase(itemKey)
+
+					If InStr(paramKeyLower, "pwd") > 0 Or InStr(paramKeyLower, "pass") > 0 Then
+						itemVal = "*****"
+					End If
+
+					If itemVal <> "" Then
+						If queryParamStr <> "" Then queryParamStr = queryParamStr & ", "
+						queryParamStr = queryParamStr & itemKey & "=" & Left(itemVal, 50)
+					End If
+				Next
+			End If
+
+			autoLogDesc = "[" & actionKorName & "] " & scriptName
+			If formParamStr <> "" Then
+				autoLogDesc = autoLogDesc & " [파라미터: " & formParamStr & "]"
+			ElseIf queryParamStr <> "" Then
+				autoLogDesc = autoLogDesc & " [쿼리: " & queryParamStr & "]"
+			End If
+
+			' 기존 감지 로그 뒤에 auditLogDesc 결합
+			If auditLogDesc <> "" Then
+				autoLogDesc = autoLogDesc & " " & auditLogDesc
+			End If
+
+			' 공통 감사 로그 저장 (메뉴코드 "020100" = 회원관리)
+			Call AddAuditLog(auditLogType, "020100", Seq, autoLogDesc)
+		End If
+		' =========================================================================
+
 		If IsAjax = "1" Then
 			If Result = 0 Then
 				Response.Write "SUCC"
