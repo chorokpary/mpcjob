@@ -272,9 +272,9 @@
                                 <col class="w140" />
                                 <col class="w100" />
                                 <col class="w80" />
-                                <col class="w110" />
+                                <col class="w90" />
                                 <col />
-                                <col class="w60" />
+                                <col class="w150" />
                                 <col class="w100" />
                             </colgroup>
                             <thead>

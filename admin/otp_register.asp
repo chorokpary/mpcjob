@@ -1,4 +1,5 @@
 <!-- #include virtual="/common/CommonConfig.asp" -->
+<!-- #include virtual="/common/Function/FnAuditLog.asp" -->
 <%
     ' 1. 권한 체크 (임시 세션 존재 여부 확인)
     If Session("TempASeq") = "" Or IsNull(Session("TempASeq")) Then
@@ -104,6 +105,9 @@
             Session("ALevel") = Session("TempALevel")
             Session.Timeout = 180
 
+            ' [감사 로그] 로그인 최종 성공 및 OTP 등록 기록
+            Call AddAuditLog("LOGIN", "000000", Session("ASeq"), "관리자 로그인 성공 - OTP 기기 등록 완료 (ID: " & Session("AID") & ", 이름: " & Session("AName") & ")")
+
             ' 임시 세션 제거
             Session("TempASeq")     = ""
             Session("TempAID")      = ""
@@ -114,6 +118,9 @@
             Response.Write "<script>alert('OTP 기기가 성공적으로 등록되었습니다.'); location.href='/admin/recruit/job_skin_list.asp';</script>"
             Response.End
         Else
+            ' [감사 로그] 로그인 실패 기록 (OTP 등록 번호 불일치)
+            Call AddAuditLog("LOGIN_FAIL", "000000", Session("TempASeq"), "로그인 실패 - OTP 등록 인증번호 불일치 (ID: " & Session("TempAID") & ")")
+
             Response.Write "<script>alert('인증번호가 일치하지 않습니다. 다시 시도하십시오.'); history.back();</script>"
             Response.End
         End If

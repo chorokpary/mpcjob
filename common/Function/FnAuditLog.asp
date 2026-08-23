@@ -1,4 +1,4 @@
-﻿<%
+<%
 '====================================================================================
 ' * Function : AddAuditLog
 ' * Description : 관리자 감사 로그 DB 저장 공통 함수 (메뉴명 자동 추출 지원)
@@ -13,6 +13,13 @@ Sub AddAuditLog(argLogType, argMenuCode, argTargetKey, argLogDesc)
     adminSeq  = Session("ASeq")
     adminID   = Session("AID")
     adminName = Session("AName")
+
+    ' 1차 로그인 성공 후 OTP 인증 단계(임시 세션 상태)인 경우, 임시 세션 정보를 감사 로그에 반영
+    If (IsNull(adminSeq) Or adminSeq = "") And Session("TempASeq") <> "" Then
+        adminSeq  = Session("TempASeq")
+        adminID   = Session("TempAID")
+        adminName = Session("TempAName")
+    End If
 
     If IsNull(adminSeq) Or adminSeq = "" Then adminSeq = 0
     If IsNull(adminID) Or adminID = "" Then adminID = "SYSTEM"
