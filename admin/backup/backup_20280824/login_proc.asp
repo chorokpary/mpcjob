@@ -1,11 +1,15 @@
 <!-- #include virtual="/common/CommonConfig.asp" -->
 <!-- #include virtual="/common/Function/FnAuditLog.asp" -->
-<!-- #include virtual="/admin/siteconf/iplimit/ip_check.asp" -->
 <%
 '____________________________________________________________________________________
 '
-' * Discription : login_proc.asp / MPCJOB - 관리자 : 로그인 처리 (OTP 테스트용)
+' * Discription : login_proc.asp / MPCJOB - 관리자 : 로그인 처리
 ' 
+' * History : (position number : date / author /회사약칭/ explanation)
+'   #000 : 2012-06-20 / 강미현 / 4M / 최초작성
+'   #001 : 
+'   #002 :
+'   #003 :
 '____________________________________________________________________________________
 %>
 <!DOCTYPE html>
@@ -58,52 +62,17 @@
 			If Result = "SUCC" Then
 				Set Rs = Rs.NextRecordSet
 				
-				' 임시 세션 발급 (로그인 1단계 성공 상태)
-				Session("TempASeq")   = Rs("AdmSeq")
-				Session("TempAID")    = Rs("AdmID")
-				Session("TempAName")  = Rs("AdmName")
-				Session("TempALevel") = Rs("AdmLevel")
+				Session("ASeq") = Rs("AdmSeq")
+				Session("AID")	= Rs("AdmID")
+				Session("AName") = Rs("AdmName")
+				Session("ALevel") = Rs("AdmLevel")
 
-				Session.Timeout = 30 ' OTP 입력 제한 시간 (30분)
-
-				' DB에서 사용자의 OTP Secret 존재 여부 체크 (후보 테이블 순차 조회)
-				Dim dbSecretVal, checkRs, sqlCheck
-				dbSecretVal = ""
+				Session.Timeout = 180
 				
-				Dim tables, tbl, qrySuccess
-				tables = Array("tblAdmin", "Admin", "Member_Admin", "tbl_Admin")
-				qrySuccess = False
-
-				On Error Resume Next
-				For Each tbl In tables
-					If Not qrySuccess Then
-						Err.Clear
-						Set checkRs = objDbCon.Execute("SELECT AdmOtpSecret FROM " & tbl & " WHERE AdmSeq = " & Rs("AdmSeq"))
-						If Err.Number = 0 Then
-							If Not checkRs.Eof Then
-								dbSecretVal = checkRs("AdmOtpSecret") & ""
-							End If
-							checkRs.Close
-							Set checkRs = Nothing
-							qrySuccess = True
-						End If
-					End If
-				Next
-				On Error GoTo 0
+				' [감사 로그] 로그인 성공 기록
+				Call AddAuditLog("LOGIN", "000000", Rs("AdmSeq"), "관리자 로그인 성공 (ID: " & strID & ", 이름: " & Rs("AdmName") & ")")
 				
-				If qrySuccess And dbSecretVal <> "" Then
-					' [감사 로그] 1단계 인증 성공 기록 (OTP 대기)
-					Call AddAuditLog("LOGIN_OTP_WAIT", "000000", Rs("AdmSeq"), "관리자 1차 로그인 성공 - OTP 인증 대기 (ID: " & strID & ", 이름: " & Rs("AdmName") & ")")
-					
-					' OTP가 이미 등록되어 있는 경우 -> OTP 인증 페이지로 리다이렉트
-					%><meta http-equiv="refresh" content="0; url=/admin/otp_auth.asp"><%
-				Else
-					' [감사 로그] 1단계 인증 성공 기록 (OTP 미등록)
-					Call AddAuditLog("LOGIN_OTP_WAIT", "000000", Rs("AdmSeq"), "관리자 1차 로그인 성공 - OTP 신규 등록 대기 (ID: " & strID & ", 이름: " & Rs("AdmName") & ")")
-					
-					' OTP 등록이 필요한 경우 -> OTP 최초 기기 등록 페이지로 리다이렉트
-					%><meta http-equiv="refresh" content="0; url=/admin/otp_register.asp"><%
-				End If
+				%><meta http-equiv="refresh" content="0; url=http://www.mpcjob.co.kr/admin/recruit/job_skin_list.asp"><%
 				Response.End
 			ElseIf Result = "LOCK" Then
 				' [감사 로그] 로그인 잠금 기록

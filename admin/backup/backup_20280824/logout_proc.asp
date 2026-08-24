@@ -23,11 +23,11 @@
 	Session("ALevel") = ""	
 	
 	' OTP 관련 세션 해제 (실서비스 적용 시 아래 주석 해제)
-	Session("TempASeq") = ""
-	Session("TempAID") = ""
-	Session("TempAName") = ""
-	Session("TempALevel") = ""
-	Session("NewOtpSecret") = ""
+	'Session("TempASeq") = ""
+	'Session("TempAID") = ""
+	'Session("TempAName") = ""
+	'Session("TempALevel") = ""
+	'Session("NewOtpSecret") = ""
 %>
 <!DOCTYPE html>
 <html lang="ko">

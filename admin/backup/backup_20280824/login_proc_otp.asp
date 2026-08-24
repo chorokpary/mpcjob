@@ -4,14 +4,14 @@
 <%
 '____________________________________________________________________________________
 '
-' * Discription : login_proc.asp / MPCJOB - 관리자 : 로그인 처리 (OTP 테스트용)
+' * Discription : login_proc_otp.asp / MPCJOB - 관리자 : 로그인 처리 (OTP 테스트용)
 ' 
 '____________________________________________________________________________________
 %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<title>로그인 - HC 관리자</title>
+	<title>로그인 - HC 관리자 (OTP 테스트)</title>
 <% 
 	Dim strID, strPWD, Result
 

@@ -39,6 +39,7 @@
 			}
 		}
 		
+		
 		$(function() {
 			$(window).load(function(){	
 				$("#txtID").focus();
@@ -55,16 +56,13 @@
 			<div class="inner">
 				<h1><img src="/admin/images/login_admin.jpg" alt="관리자 페이지" /></h1>
 				<div class="loginForm">
-					<form id="frmLogin" name="frmLogin" action="login_proc.asp" method="post" onsubmit="javascript: return chkLogin();">
+					<form id="frmLogin" name="frmLogin" action="https://www.mpcjob.co.kr/admin/login_proc.asp" method="post" onsubmit="javascript: return chkLogin();">
 					<label for="txtID"><img src="/admin/images/id_admin.jpg" alt="아이디" /></label><input type="text" title="아이디" id="txtID" name="txtID" value="" /><br/>
 					<label for="txtPwd"><img src="/admin/images/pw_admin.jpg" alt="비밀번호" /></label><input type="password" title="비밀번호" id="txtPwd" name="txtPwd" value="" />
 					<input type="image" src="/admin/images/btn_login.jpg" alt="로그인" class="submit" />
 					</form>
 				</div>
 			</div>
-			<p style="text-align:center; padding:10px 0 5px; font-size:12px; color:serif;">
-				접속 IP: <strong style="color:#0055aa;"><%=Request.ServerVariables("REMOTE_ADDR")%></strong>
-			</p>
 			<p class="copy"><img src="/admin/images/copy_admin.jpg" alt="COPYRIGHT (C) 2009 MPC LTD., ALL RIGHTS RESERVED" /></p>
 		</div>
 	</div>

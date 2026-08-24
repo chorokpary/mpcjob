@@ -1,8 +1,8 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<title>HC 관리자</title>
+	<title>HC 관리자 (OTP 테스트용)</title>
 	<link href="/admin/css/admin.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="/common/js/jquery-1.8.0.min.js"></script>
 	<script type="text/javascript" src="/common/js/common.js"></script>
@@ -55,7 +55,7 @@
 			<div class="inner">
 				<h1><img src="/admin/images/login_admin.jpg" alt="관리자 페이지" /></h1>
 				<div class="loginForm">
-					<form id="frmLogin" name="frmLogin" action="login_proc.asp" method="post" onsubmit="javascript: return chkLogin();">
+					<form id="frmLogin" name="frmLogin" action="login_proc_otp.asp" method="post" onsubmit="javascript: return chkLogin();">
 					<label for="txtID"><img src="/admin/images/id_admin.jpg" alt="아이디" /></label><input type="text" title="아이디" id="txtID" name="txtID" value="" /><br/>
 					<label for="txtPwd"><img src="/admin/images/pw_admin.jpg" alt="비밀번호" /></label><input type="password" title="비밀번호" id="txtPwd" name="txtPwd" value="" />
 					<input type="image" src="/admin/images/btn_login.jpg" alt="로그인" class="submit" />
