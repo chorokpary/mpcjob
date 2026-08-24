@@ -1,4 +1,4 @@
-﻿<!-- #include virtual="/common/CommonConfig.asp" -->
+<!-- #include virtual="/common/CommonConfig.asp" -->
 <!-- #include virtual="/common/AdminConfig.asp" -->
 <!-- #include virtual="/common/Seed/config.asp" -->
 <%
@@ -568,7 +568,7 @@
 				, url: url
 				, data: param
 				, success: function(result){ 
-					if (result=="SUCC"){
+					if ($.trim(result)=="SUCC"){
 						alert("비밀번호가 변경되었습니다.");
 						$("#Passwd").val("");
 					}else{
@@ -590,7 +590,7 @@
 				, url: url
 				, data: param
 				, success: function(result){ 
-					if (result=="SUCC"){
+					if ($.trim(result)=="SUCC"){
 						alert("초기화 되었습니다.");
 					}else{
 						alert("처리중 오류가 발생했습니다.");
@@ -611,7 +611,7 @@
 				, url: url
 				, data: param
 				, success: function(result){ 
-					if (result=="SUCC"){
+					if ($.trim(result)=="SUCC"){
 						alert("임시비밀번호가 회원의 핸드폰으로 전송되었습니다.");
 						$("#Passwd").val("");
 					}else{
@@ -683,7 +683,7 @@
 				, url: url
 				, data: param
 				, success: function(result){ 
-					if (result=="SUCC"){
+					if ($.trim(result)=="SUCC"){
 						getDetailInfo(Flag);
 						if (Flag == "Memo")		$("#Memo").val("");
 					}else{
@@ -732,7 +732,7 @@
 				, url: url
 				, data: param
 				, success: function(result){ 
-					if (result=="SUCC"){
+					if ($.trim(result)=="SUCC"){
 						getDetailInfo(Flag);
 					}else{
 						alert("처리중 오류가 발생했습니다.");

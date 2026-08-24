@@ -753,6 +753,7 @@
 		' =========================================================================
 
 		If IsAjax = "1" Then
+			Response.Clear
 			If Result = 0 Then
 				Response.Write "SUCC"
 			Else
