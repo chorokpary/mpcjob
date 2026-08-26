@@ -73,7 +73,7 @@ Sub AddAuditLog(argLogType, argMenuCode, argTargetKey, argLogDesc)
         tmpMenuName = Replace(tmpMenuName, Chr(39), Chr(92) & Chr(39))
         
         ' 4. 콘솔 출력
-        Response.Write "<script>console.log('AddAuditLog Debug - scriptName: " & tmpScriptName & ", menuCode: " & tmpMenuCode & ", menuName: " & tmpMenuName & "');</script>"
+        'Response.Write "<script>console.log('AddAuditLog Debug - scriptName: " & tmpScriptName & ", menuCode: " & tmpMenuCode & ", menuName: " & tmpMenuName & "');</script>"
     End If
     
     If menuName = "" Or menuName = "메인" Then
@@ -310,15 +310,15 @@ Sub AddAuditLog(argLogType, argMenuCode, argTargetKey, argLogDesc)
                     errDesc = Replace(errDesc, vbCrLf, " ")
                     errDesc = Replace(errDesc, vbCr, " ")
                     errDesc = Replace(errDesc, vbLf, " ")
-                    Response.Write "<script>console.log('Error in getMenuName: (" & Err.Number & ") " & errDesc & "');</script>"
+                    'Response.Write "<script>console.log('Error in getMenuName: (" & Err.Number & ") " & errDesc & "');</script>"
                 End If
             End If
-            Response.Write "<script>console.log('isLocalMapCreated: " & isLocalMapCreated & "');</script>"
+            'Response.Write "<script>console.log('isLocalMapCreated: " & isLocalMapCreated & "');</script>"
             
             Dim safeRefererPath
             safeRefererPath = CStr(refererPath & "")
             safeRefererPath = Replace(safeRefererPath, "'", "\'")
-            Response.Write "<script>console.log('refererPath (LCase): " & LCase(safeRefererPath) & "');</script>"
+            'Response.Write "<script>console.log('refererPath (LCase): " & LCase(safeRefererPath) & "');</script>"
 
             Dim safeParentMenuName
             safeParentMenuName = CStr(parentMenuNameFromRef & "")
@@ -326,7 +326,7 @@ Sub AddAuditLog(argLogType, argMenuCode, argTargetKey, argLogDesc)
             safeParentMenuName = Replace(safeParentMenuName, vbCrLf, " ")
             safeParentMenuName = Replace(safeParentMenuName, vbCr, " ")
             safeParentMenuName = Replace(safeParentMenuName, vbLf, " ")
-            Response.Write "<script>console.log('parentMenuNameFromRef: " & safeParentMenuName & "');</script>"
+            'Response.Write "<script>console.log('parentMenuNameFromRef: " & safeParentMenuName & "');</script>"
         
         ' isStatsPage 이면서 내부 서브 액션(isSelfReferer = True)인 경우에 한해서만 subMenuName 을 레퍼러(부모 팝업) 주소 기준으로 복원!
         subMenuName = ""
@@ -453,7 +453,7 @@ Sub AddAuditLog(argLogType, argMenuCode, argTargetKey, argLogDesc)
                ", parentMenuNameFromRef: " & (parentMenuNameFromRef & "") & _
                ", Final menuName: " & (menuName & "") & _
                ", Final subMenuName: " & (subMenuName & "")
-    Response.Write "<script>console.log(`" & debugMsg & "`);</script>"
+    'Response.Write "<script>console.log(`" & debugMsg & "`);</script>"
 End Sub
 
 Function GetAuditParam(paramName)
