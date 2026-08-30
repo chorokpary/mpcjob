@@ -25,6 +25,24 @@ Sub AddAuditLog(argLogType, argMenuCode, argTargetKey, argLogDesc)
     If IsNull(adminID) Or adminID = "" Then adminID = "SYSTEM"
     If IsNull(adminName) Or adminName = "" Then adminName = "미인증/시스템"
 
+    ' ====================================================================
+    ' [감사 로그 예외 계정 처리]
+    ' 특정 ID (예: SYSTEM, superadmin, testuser 등)는 감사 로그 기록 스킵
+    ' ====================================================================
+    Dim arrExcludeIDs, exID, isExcluded
+    ' ▼ 제외하고 싶은 ID들을 배열에 추가 (대소문자 구별 없음)
+    arrExcludeIDs = Array("testadmin") 
+    isExcluded = False
+    For Each exID In arrExcludeIDs
+        If UCase(Trim(adminID & "")) = UCase(Trim(exID)) Then
+            isExcluded = True
+            Exit For
+        End If
+    Next
+    ' 예외 계정이면 DB INSERT를 실행하지 않고 즉시 함수 종료
+    If isExcluded Then Exit Sub 
+    ' ====================================================================
+
     ' Client IP 획득 (프록시/로드밸런서 대응)
     userIP = Request.ServerVariables("HTTP_X_FORWARDED_FOR")
     If userIP = "" Then userIP = Request.ServerVariables("REMOTE_ADDR")
