@@ -333,7 +333,7 @@
                                 %>
                                 <tr>
                                     <td><%=vNum%></td>
-                                    <td style="font-size: 11px; color: #64748b;"><%=arrData(12,i)%></td>
+                                    <td style="font-size: 11px; color: #64748b;"><%=FN_SetDateTimeFormat(arrData(12,i), "YYYY-MM-DD HH:NN:SS")%></td>
                                     <td style="font-family: monospace; font-size: 11px;"><%=arrData(2,i)%></td>
                                     <td><strong><%=arrData(3,i)%></strong></td>
                                     <td style="font-family: monospace; font-size: 11px; color: #64748b;"><%=arrData(4,i)%></td>
@@ -350,7 +350,7 @@
                                             <div class="desc-tooltip">
                                                 <span class="tooltip-close">&times;</span>
                                                 <strong style="display:block; margin-bottom:8px; color:#1e293b; font-size:12px; border-bottom:1px solid #e2e8f0; padding-bottom:5px;">작업 상세 내용</strong>
-                                                <div style="max-height: 160px; overflow-y: auto; white-space: pre-wrap; word-break: break-all; color: #475569;"><%=Trim(Replace(arrData(11,i), "자동감지/", ""))%></div>
+                                                <div style="max-height: 160px; overflow-y: auto; white-space: pre-wrap; word-break: break-all; color: #475569;"><%=Trim(Replace(arrData(11,i) & "", "자동감지/", ""))%></div>
                                                 <% If arrData(10,i) <> "" Then %>
                                                     <div style="margin-top:8px; border-top:1px dashed #cbd5e1; padding-top:6px; color:#64748b; font-size:10px;">
                                                         <strong>대상 키:</strong> <%=arrData(10,i)%>

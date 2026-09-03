@@ -8,6 +8,7 @@
         Response.End
     End If
 
+    Server.ScriptTimeout = 600
     Response.Buffer = TRUE
     Response.ContentType = "application/vnd.ms-excel"
     Response.AddHeader "Content-Disposition","attachment; filename=Audit_Log_" & Replace(Date(),"-","") & ".xls"
@@ -44,6 +45,7 @@
 
     ' DB 조회 (최대 10000개 제한)
     On Error Resume Next
+    objDbCon.CommandTimeout = 300
     sqlList = "SELECT TOP 10000 LogSeq, AdminSeq, AdminID, AdminName, AdminIP, MenuCode, ParentMenuName, MenuName, SubMenuName, LogType, TargetKey, LogDesc, RegDate " & _
               "FROM TBL_ADMIN_AUDIT_LOG " & sqlWhere & " ORDER BY LogSeq DESC"
     Set listRs = objDbCon.Execute(sqlList)
@@ -103,7 +105,7 @@
             <%
                 For i = 0 To arrDataNum
                     Dim logTypeStr
-                    Select Case arrData(9,i)
+                    Select Case arrData(9,i) & ""
                         Case "CREATE"     : logTypeStr = "등록"
                         Case "READ"       : logTypeStr = "조회"
                         Case "UPDATE"     : logTypeStr = "수정"
@@ -113,22 +115,30 @@
                         Case "LOGIN"      : logTypeStr = "로그인"
                         Case "LOGIN_FAIL" : logTypeStr = "로그인 실패"
                         Case "LOGOUT"     : logTypeStr = "로그아웃"
-                        Case Else         : logTypeStr = arrData(9,i)
+                        Case Else         : logTypeStr = arrData(9,i) & ""
                     End Select
+
+                    Dim cleanLogDesc
+                    cleanLogDesc = Trim(Replace(arrData(11,i) & "", "자동감지/", ""))
+                    cleanLogDesc = Server.HTMLEncode(cleanLogDesc)
             %>
             <tr>
                 <td><%=arrDataNum - i + 1%></td>
-                <td><%=arrData(12,i)%></td>
-                <td style="mso-number-format:'\@';"><%=arrData(2,i)%></td>
-                <td><%=arrData(3,i)%></td>
-                <td style="mso-number-format:'\@';"><%=arrData(4,i)%></td>
-                <td><%=arrData(6,i)%></td>
-                <td><%=arrData(7,i)%></td>
+                <td style="mso-number-format:'\@';"><%=FN_SetDateTimeFormat(arrData(12,i), "YYYY-MM-DD HH:NN:SS")%></td>
+                <td style="mso-number-format:'\@';"><%=Server.HTMLEncode(arrData(2,i) & "")%></td>
+                <td><%=Server.HTMLEncode(arrData(3,i) & "")%></td>
+                <td style="mso-number-format:'\@';"><%=Server.HTMLEncode(arrData(4,i) & "")%></td>
+                <td><%=Server.HTMLEncode(arrData(6,i) & "")%></td>
+                <td><%=Server.HTMLEncode(arrData(7,i) & "")%></td>
                 <td><%=logTypeStr%></td>
-                <td style="mso-number-format:'\@';"><%=arrData(10,i)%></td>
-                <td class="left"><%=Trim(Replace(arrData(11,i), "자동감지/", ""))%></td>
+                <td style="mso-number-format:'\@';"><%=Server.HTMLEncode(arrData(10,i) & "")%></td>
+                <td class="left"><%=cleanLogDesc%></td>
             </tr>
             <%
+                    ' 100건마다 버퍼를 즉시 플러시하여 IIS 버퍼 한도(4MB) 초과 에러 방지
+                    If i Mod 100 = 0 Then
+                        Response.Flush
+                    End If
                 Next
             End If
             %>
